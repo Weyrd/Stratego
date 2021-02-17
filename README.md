@@ -1,2 +1,2 @@
 # Stratego
-C'est un stratego
+C'est un stratego (je crois)
