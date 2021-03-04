@@ -1,0 +1,374 @@
+@import url(https://fonts.googleapis.com/css?family=Courgette&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap);
+
+body {
+    height: 100vh;
+    background-color: #3c5cbb !important;
+}
+
+#back,
+#upload,
+#changeName,
+#imgSelection {
+    cursor: pointer;
+}
+
+#main {
+    display: flex;
+    justify-content: center;
+}
+
+#wrapper {
+    display: grid;
+}
+
+#wrapper div {
+    margin: 3%;
+    transition: border 0.1s ease-in-out;
+}
+
+#hole {
+    background-color: #3c5cbb;
+}
+
+#divBloc {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 6vw;
+    opacity: 90%;
+    display: flex;
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#divBloc div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 4vw;
+    height: 4vw;
+    font-size: 1vw;
+    text-align: center;
+    transition: opacity 0.2s ease-out;
+    background-repeat: no-repeat;
+    background-size: contain;
+    image-rendering: pixelated;
+}
+
+#divBloc>div>div {
+    width: 4vw;
+    height: 4vw;
+}
+
+.hover {
+    transform: scale(1.2);
+}
+
+p {
+    margin: 0;
+    font-size: 1.2vw;
+}
+
+.selection {
+    background: rgba(46, 115, 252, 0.11);
+    border-radius: 0.1em;
+    border: 0.17vw solid rgba(98, 155, 255, 0.81);
+}
+
+.selected {
+    border: 0.17vw white solid;
+}
+
+#matrixSize {
+    position: fixed;
+    background: white;
+    width: 400px;
+    height: 200px;
+    top: 50px;
+    left: 50%;
+    margin-left: -200px;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0px 0px 28px -7px rgba(0, 0, 0, 0.49);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.x,
+.y,
+.levelName {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.x p,
+.y p,
+.levelName p {
+    margin: 0 5px 0 0;
+}
+
+.disabled {
+    opacity: 15%;
+}
+
+.buttonChangeSize {
+    background: lightgrey;
+    width: 50%;
+    height: 100%;
+    border: solid 0.075vw black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    cursor: pointer;
+}
+
+.buttonChangeSize:active {
+    background: white;
+}
+
+#toolbox {
+    position: absolute;
+    top: 1.8%;
+    right: 1%;
+    z-index: 9;
+    width: 13vw;
+    padding: 1%;
+    padding-top: 0.5%;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 1vw;
+    opacity: 90%;
+}
+
+#toolbox p {
+    font-size: 55%;
+    text-align: center;
+}
+
+#toolbox h2 {
+    cursor: move;
+    z-index: 10;
+    font-size: 1.2vw;
+    margin-bottom: 0;
+}
+
+#back {
+    width: 12%;
+    position: absolute;
+    top: 2%;
+    left: 4%;
+}
+
+#back:active {
+    top: 3%;
+    left: 5%;
+}
+
+#upload {
+    width: 9%;
+    position: absolute;
+    top: 4%;
+    right: 4%;
+}
+
+#upload:active {
+    top: 5%;
+    right: 3%;
+}
+
+#editName {
+    margin-top: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+#changeName {
+    width: 9%;
+    margin-left: 2%;
+}
+
+#changeName:active {
+    position: relative;
+    top: 2px;
+    left: 1px;
+}
+
+#changeSizeX,
+#changeSizeY {
+    margin-top: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 55%;
+}
+
+#changeSizeX>div,
+#changeSizeY>div {
+    display: flex;
+    justify-content: flex-start;
+    height: 1.25vw;
+    font-size: 1.25vw;
+}
+
+#minusX,
+#minusY {
+    margin-left: 5%;
+}
+
+#plusX,
+#plusY {
+    border-left: none;
+}
+
+#clearSelection {
+    width: 100%;
+    margin-top: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#clearSelection img {
+    width: 15%;
+    margin-left: 2%;
+}
+
+#clearSelection img:active {
+    position: relative;
+    top: 2px;
+    left: 1px;
+}
+
+#changeNamePopup {
+    position: fixed;
+    top: 5vw;
+    left: 36.5vw;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5vw;
+    width: 27.5vw;
+    background-color: white;
+    border-radius: 1vw;
+    opacity: 90%;
+}
+
+#changeNamePopup input {
+    font-size: 1.25vw;
+    height: 3vw;
+    width: 20vw;
+    border: none;
+    text-align: center;
+    transition: color 0.15s ease-in-out;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+#changeNamePopup input:focus {
+    outline: none;
+    color: rgba(0, 0, 0, 1);
+}
+
+#changeNamePopup button {
+    margin-top: 1.35vh;
+    width: 6vw;
+    height: 4vh;
+    background: lightgrey;
+    border: solid 0.075vw black;
+    font-size: 1.25vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#changeNamePopup button {
+    outline: none;
+}
+
+.editeOrCreate {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+}
+
+.editeOrCreate p {
+    font-family: 'Courgette';
+    color: white;
+    font-size: 3vw;
+}
+
+.create {
+    border-right: 0.075vw solid white;
+}
+
+.edit {
+    border-left: 0.075vw solid white;
+    border-right: 0.075vw solid white;
+}
+
+.generator {
+    border-left: 0.075vw solid white;
+}
+
+.create,
+.edit,
+.generator {
+    width: 50%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    transition: background-color 0.3s, width 0.3s;
+    cursor: pointer;
+}
+
+.create:hover,
+.edit:hover,
+.generator:hover {
+    width: 52.5%;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+#tableLevel {
+    position: absolute;
+    top: 2.5vw;
+    left: 20vw;
+    margin: 0 auto !important;
+    border: none;
+    padding: 0;
+    color: white;
+}
+
+#tableLevel thead {
+    font-family: 'Courgette';
+    font-size: 2.5vw;
+}
+
+
+#tableLevel td,
+#tableLevel tr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    width: 50vw;
+    border: none;
+    padding: 0.5vw;
+}
+
+#tableLevel td img {
+    width: 20vw;
+}

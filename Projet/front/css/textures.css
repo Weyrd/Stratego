@@ -1,0 +1,126 @@
+body {
+    font-size: 1vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: #3c5cbb !important;
+}
+
+#wrapper {
+    display: grid;
+    height: auto;
+}
+
+#wrapper>* {
+    background-repeat: no-repeat;
+    background-size: contain;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+#player1 {
+    background-image: url('../assets/images/texture/perso1.png');
+    position: absolute;
+    border-radius: 20%;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    background-size: cover;
+}
+
+#player2 {
+    background-image: url('../assets/images/texture/perso2.png');
+    position: absolute;
+    border-radius: 20%;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    background-size: cover;
+}
+
+.wall {
+    background-image: url('../assets/images/texture/wall.png');
+}
+
+.ground {
+    background-image: url('../assets/images/texture/ground.png');
+}
+
+.hole {}
+
+.switch {
+    background-image: url('../assets/images/texture/switch.png');
+}
+
+.plate {
+    background-image: url('../assets/images/texture/plate.png');
+}
+
+.door {
+    background-image: url('../assets/images/texture/door.png');
+}
+
+.doorOpen {
+    background-image: url('../assets/images/texture/door_open.png');
+}
+
+.teleporter {
+    background-image: url('../assets/images/texture/tp_simple.png');
+}
+
+.teleporterDouble {
+    background-image: url('../assets/images/texture/tp_double.png');
+}
+
+.start1 {
+    background-image: url('../assets/images/texture/spawn.png');
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.start2 {
+    background-image: url('../assets/images/texture/spawn.png');
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.end {
+    background-image: url('../assets/images/texture/end.png');
+}
+
+.switchDouble.triggered {
+    background-image: url('../assets/images/texture/switch_double_triggered.png');
+}
+
+.switch.triggered {
+    background-image: url('../assets/images/texture/switch_triggered.png');
+}
+
+.monoDirection {
+    background-color: #7b70a5;
+}
+
+.arrival {
+    background-image: url('../assets/images/texture/tp_arrival.png');
+}
+
+.iceblock {
+    background-image: url('../assets/images/texture/ice.png');
+}
+
+.switchDouble {
+    background-image: url('../assets/images/texture/switch_double.png');
+}
+
+.bumper {
+    background-image: url('../assets/images/texture/bumper.png');
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

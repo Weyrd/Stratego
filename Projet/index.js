@@ -5,8 +5,8 @@ const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const session = require("express-session")({
-  // CIR2-chat encode in sha256
-  secret: "eb8fcc253281389225b4f7872f2336918ddc7f689e1fc41b64d5c4f378cdc438",
+
+  secret: "1081a1e0c1b22b5f6a71401884e29e20228fa72021f425b7687125af0c467d06",
   resave: true,
   saveUninitialized: true,
   cookie: {
@@ -17,13 +17,10 @@ const session = require("express-session")({
 const sharedsession = require("express-socket.io-session");
 const bodyParser = require('body-parser');
 const { body, validationResult } = require('express-validator');
-const fs = require('fs');
-const mysql = require('mysql');
 
 /**** Import project libs ****/
 
 const states = require('./back/modules/states');
-const Theoden = require('./back/models/Theoden');
 
 /**** Project configuration ****/
 
@@ -47,163 +44,17 @@ if (app.get('env') === 'production') {
   session.cookie.secure = true // serve secure cookies
 }
 
-// Initialisation de la connexion à la bdd
-const con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "cir2rest"
-});
-
 /**** Code ****/
 
-// Block d'accès à la BDD
-con.connect(err => {
-  if (err) throw err;
-  else console.log('Connexion effectuée');
-});
-
-// Lecture de fichiers
-fs.readFile(__dirname + '/back/data/characters.json', (err, data) => {
-  if (err) throw err;
-  const characters = JSON.parse(data);
-  console.log(characters.characters[0]);
-  console.log(characters.characters[0].weapon)
-});
-
-/*
-//Creation de fichier 
-let sentence = "Indubitablement, on dit Pain au chocolat.";
-fs.writeFile(__dirname + '/back/data/truth.txt', sentence, (err) => {
-  if (err) throw err;
-  console.log('Data written to file');
-});
-
-// Ajout dans un fichier
-let conclusion = "Pour les toulousains, un pain aux amandes est donc une amandine.";
-fs.appendFile(__dirname + '/back/data/truth.txt', conclusion, (err) => {
-  if (err) throw err;
-  console.log('Data added to file');
-});
-*/
-
-// Ajout dans un fichier JSON
-fs.readFile(__dirname + '/back/data/characters.json', (err, data) => {
-  if (err) throw err;
-  const characters = JSON.parse(data);
-
-  let newCharacter = {
-    "name": "Darth Vader",
-    "age": 50,
-    "gender": "Male",
-    "job": "Sith Lord",
-    "weapon": [
-      "lightsaber",
-      "force"
-    ]
-  };
-
-  characters.characters.push(newCharacter);
-
-  let mydatas = JSON.stringify(characters, null, 2); // Le 2 est pour réguler les espaces dans la chaine finale
-
-  fs.writeFile(__dirname + '/back/data/characters.json', mydatas, (err) => {
-    if (err) throw err;
-    console.log('Data written to file');
-  });
-
-});
-
-
-
-/*
-let sql = "INSERT INTO components (idComp, name, needRecipe, price, type, buyInBulk, percentUsed) VALUES (0, 'Farine', 1, 1.50, 'food', 1, 0.10)";
-  con.query(sql, (err, result) => {
-    if (err) throw err;
-    console.log("One component inserted");
-    console.log(result);
-  });
-
-  con.query("SELECT * FROM components", (err, result) => {
-    if (err) throw err;
-    console.log(result);
-  });
-
-  con.query("SELECT * FROM components WHERE idComp = '0'", (err, result) => {
-    if (err) throw err;
-    console.log(result);
-  });
-
-  let sql = "INSERT INTO components (name, needRecipe, price, type, buyInBulk, percentUsed) VALUES ('Sucre', 1, 2, 'food', 1, 0.10)";
-  con.query(sql, (err, result) => {
-    if (err) throw err;
-    console.log("One component inserted");
-    console.log(result);
-  });
-
-  con.query("SELECT * FROM components ORDER BY idComp", (err, result) => {
-    if (err) throw err;
-    console.log(result);
-  });
-
-  sql = "UPDATE components SET name = 'Sucre en poudre' WHERE idComp = '2'";
-  con.query(sql, (err, result) => {
-    if (err) throw err;
-    console.log(result.affectedRows + " record(s) updated");
-  });
-
-  sql = "DELETE FROM components WHERE idComp = '1'";
-  con.query(sql, (err, result) => {
-    if (err) throw err;
-    console.log("Number of records deleted: " + result.affectedRows);
-  });
-
-  let sql = "INSERT INTO components ( name, needRecipe, price, type, buyInBulk, percentUsed) VALUES ( 'Farine', 1, 1.50, 'food', 1, 0.10)";
-  con.query(sql, (err, result) => {
-    if (err) throw err;
-    console.log("One component inserted");
-    console.log(result);
-  });
-
-  sql = "SELECT * FROM components LIMIT 1";
-  con.query(sql, (err, result) => {
-    if (err) throw err;
-    console.log(result);
-  });
-
-  const component = {
-    name: 'Sel',
-    needRecipe: '1',
-    price: '1',
-    type: 'food',
-    buyInBulk: '1',
-    percentUsed: '0.01'
-  },
-
-  sql = "INSERT INTO components SET ?";
-  con.query(sql, component, (err, result) => {
-    if (err) throw err;
-    console.log("1 record inserted");
-    console.log(result);
-  });
-*/
-
-
 app.get('/', (req, res) => {
-  let sessionData = req.session;
-
-  // Test des modules 
   states.printServerStatus();
-  states.printProfStatus();
-  let test = new Theoden();
-
-  // Si l'utilisateur n'est pas connecté
-  if (!sessionData.username) {
-    res.sendFile(__dirname + '/front/html/login.html');
-  } else {
-    res.sendFile(__dirname + '/front/html/index.html');
-  }
+  res.sendFile(__dirname + '/front/html/index.html');
 });
+
+app.get('/game', (req, res) => {
+    res.sendFile(__dirname + '/front/html/game.html');
+});
+
 
 app.post('/login', body('login').isLength({ min: 3 }).trim().escape(), (req, res) => {
   const login = req.body.login
@@ -222,7 +73,7 @@ app.post('/login', body('login').isLength({ min: 3 }).trim().escape(), (req, res
 });
 
 io.on('connection', (socket) => {
-  console.log('Un élève s\'est connecté');
+  console.log('Un Utilisateur s\'est connecté');
 
   socket.on("login", () => {
     let srvSockets = io.sockets.sockets;
@@ -242,11 +93,11 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     io.emit('new-message', 'Serveur : Utilisateur ' + socket.handshake.session.username + ' vient de se déconnecter');
-    console.log('Un élève s\'est déconnecté');
+    console.log('Un Utilisateur s\'est déconnecté');
   });
 });
 
-http.listen(4200, () => {
-  console.log('Serveur lancé sur le port 4200');
+http.listen(258, () => {
+  console.log('Serveur lancé sur le port 258');
 });
 
