@@ -6,8 +6,8 @@ export default class Case{
     this.hasPiece = false;
     this.Piece;
   }
-  addPiece(pieceType, power){
-      this.Piece = new Piece(pieceType, power);
+  addPiece(pieceType, power, player){
+      this.Piece = new Piece(pieceType, power, player);
       this.hasPiece = true;
   }
   transformToWater(){
@@ -20,7 +20,14 @@ export default class Case{
     if (start.hasPiece) {
       if (!dest.water) {
         if (dest.hasPiece) {
-          Piece.engageCombat(start.Piece, dest.Piece);
+          if (start.Piece.player != dest.Piece.player){
+            Piece.engageCombat(start.Piece, dest.Piece);
+            //TO FINISH DEPENDING ON COMBAT
+          }
+          else {
+            console.log("error friendly piece on destination");
+            return(-1);
+          }
         }
         else {
           dest.Piece = start.Piece;

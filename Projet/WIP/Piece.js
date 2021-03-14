@@ -1,5 +1,5 @@
 export default class Piece{
-  constructor(pieceType, power){
+  constructor(pieceType, power, player){
     this.pieceType = pieceType;
     // 0 = normal
     // 1 = espion
@@ -9,6 +9,7 @@ export default class Piece{
     // 5 = bombe
     // 6 = drapeau
     this.power = power;
+    this.player = player;
   }
   static engageCombat(attack, def){} //TODO
 }
