@@ -11,6 +11,20 @@ export default class Terrain{
       }
     }
   }
-  generateVanillaLake(){} //TODO
+  generateVanillaLake(){
+    //first lake
+    this.matrix[2][4].transformToWater();
+    this.matrix[2][5].transformToWater();
+
+    this.matrix[3][4].transformToWater();
+    this.matrix[3][5].transformToWater();
+
+    //second lake
+    this.matrix[6][4].transformToWater();
+    this.matrix[6][5].transformToWater();
+
+    this.matrix[7][4].transformToWater();
+    this.matrix[7][5].transformToWater();
+  }
   generateRamdomLake(){} //TODO MAYBE
 }
