@@ -104,8 +104,38 @@ export default class Terrain{
       if (!terr.matrix[BX][BY].water) {
         if (terr.matrix[BX][BY].hasPiece) {
           if (terr.matrix[AX][AY].Piece.player != terr.matrix[BX][BY].Piece.player){
-            Piece.engageCombat(terr.matrix[AX][AY].Piece, terr.matrix[BX][BY].Piece);
-            //TO FINISH DEPENDING ON COMBAT
+            let ComRe = Piece.engageCombat(terr.matrix[AX][AY].Piece, terr.matrix[BX][BY].Piece);
+            if (ComRe == 3) {
+              terr.matrix[BX][BY].Piece = terr.matrix[AX][AY].Piece;
+              terr.matrix[AX][AY].Piece = null;
+              terr.matrix[AX][AY].hasPiece = false;
+              terr.matrix[BX][BY].hasPiece = true;
+              //game win flag captured
+            }
+            else if (ComRe == 0) {
+              terr.matrix[AX][AY].Piece = null;
+              terr.matrix[AX][AY].hasPiece = false;
+              terr.matrix[BX][BY].Piece = null;
+              terr.matrix[BX][BY].hasPiece = false;
+              //both dead
+            }
+            else if (ComRe == 1) {
+              terr.matrix[BX][BY].Piece = terr.matrix[AX][AY].Piece;
+              terr.matrix[AX][AY].Piece = null;
+              terr.matrix[AX][AY].hasPiece = false;
+              terr.matrix[BX][BY].hasPiece = true;
+              //attack win
+            }
+            else if (ComRe == 2){
+              terr.matrix[AX][AY].Piece = null;
+              terr.matrix[AX][AY].hasPiece = false;
+              //def win
+            }
+            else {
+              return(-1);
+              //what ?????
+            }
+            return(ComRe);
           }
           else {
             console.log("error friendly piece on destination");

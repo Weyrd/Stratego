@@ -12,22 +12,22 @@ export default class Piece{
     this.player = player;
   }
   static engageCombat(attack, def){ //attack = start piece, def = dest piece
-    if(def.power == 6){
-      return(4); // Win, flag is down !
+    if(def.pieceType == 6){
+      return(3); // Win, flag is down !
     }
     else{
-      if(attack.power == def.power){
+      if((attack.power == def.power) || (def.pieceType == 5 && attack.pieceType != 3)){
         return(0); // 2 pieces destroyed
       }
       else if(attack.power >= def.power){
         return(1); // def piece destroyed
       }
       else if(attack.power <= def.power){
-        if(attack.power == 2 && def.power == 4 || attack.power == 3 && def.power == 5){
-          return(2); //special rule, def piece destroyed
+        if(attack.pieceType == 1 && def.pieceType == 4){
+          return(1); //special rule, def piece destroyed
         }
         else{
-          return(3);// attack piece destroyed
+          return(2);// attack piece destroyed
         }
       }
     }
