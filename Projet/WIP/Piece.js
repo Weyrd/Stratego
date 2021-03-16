@@ -31,9 +31,5 @@ export default class Piece{
         }
       }
     }
-<<<<<<< HEAD
-=======
-
->>>>>>> 06429023a9a611c926a18989c70ba2d6f7699a50
   }
 }
