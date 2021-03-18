@@ -125,6 +125,8 @@ export default class Terrain{
   }
 
   static MovePieceTo(terr, AX, AY, BX, BY){
+    socket.emit("sendPieceMove", {"terrain" : terr, "AX" : AX, "AY": AY, "BX": BX, "BY": BY});
+
     if (terr.matrix[AX][AY].hasPiece) {
       //Type of Pieces movement restriction check___________________________________________________________
       //Bomb & Flag

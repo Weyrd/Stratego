@@ -18,9 +18,10 @@ const sharedsession = require("express-socket.io-session");
 const bodyParser = require('body-parser');
 const { body, validationResult } = require('express-validator');
 
+var currentroomId = 0;
 /**** Import project libs ****/
 
-const states = require('./back/modules/states');
+//const states = require('./back/modules/states');
 
 /**** Project configuration ****/
 
@@ -47,8 +48,8 @@ if (app.get('env') === 'production') {
 /**** Code ****/
 
 app.get('/', (req, res) => {
-  states.printServerStatus();
-  res.sendFile(__dirname + '/front/html/index.html');
+//  states.printServerStatus();
+  res.sendFile(__dirname + '/front/testground.html');
 });
 
 app.get('/game', (req, res) => {
@@ -72,24 +73,62 @@ app.post('/login', body('login').isLength({ min: 3 }).trim().escape(), (req, res
   }
 });
 
+function matchmacking(socket) {
+  if(socket.rooms.size == 1) {
+    joinRoom = false;
+    // check if one room already exist with one player
+    for (const [key, value] of io.sockets.adapter.rooms) {
+      if(key.includes("roomId-")){
+        if(value.size == 1){
+          roomId = key;
+          socket.join(roomId)
+          joinRoom = true;
+          break;
+        }
+      }
+    }
+    // else create new room
+      if(!joinRoom){
+        roomId = "roomId-" + currentroomId;
+        socket.join(roomId);
+        currentroomId++;
+      }
+  }
+  io.to(socket).emit("postRoom", roomId)
+  socket.handshake.session.roomId = roomId;
+  socket.handshake.session.save()
+
+  if(io.sockets.adapter.rooms.get(roomId).size == 2){
+    io.in(roomId).emit("start");
+    console.log("A new Stratego is born (", roomId, ")");
+  }
+}
+
 io.on('connection', (socket) => {
-  console.log('Un Utilisateur s\'est connecté');
+  console.log('Un Utilisateur s\'est connecté\n');
+  matchmacking(socket)
+  //io.emit('new-message', 'Utilisateur ' + socket.handshake.session.username + ' vient de se connecter');
 
-  socket.on("login", () => {
-    let srvSockets = io.sockets.sockets;
-    srvSockets.forEach(user => {
-      console.log(user.handshake.session.username);
+
+    /*socket.on("login", () => {
+      let srvSockets = io.sockets.sockets;
+      srvSockets.forEach(user => {
+        console.log(user.handshake.session.username);
+      });
+      io.emit('new-message', 'Utilisateur ' + socket.handshake.session.username + ' vient de se connecter');
+    });*/
+
+    socket.on('message', (msg) => {
+      console.log('message: ' + msg);
+      io.emit('new-message', socket.handshake.session.username + ' : ' + msg);
     });
-    io.emit('new-message', 'Utilisateur ' + socket.handshake.session.username + ' vient de se connecter');
-  });
 
-  socket.on('message', (msg) => {
-    console.log('message: ' + msg);
-    //Envoie le message pour tous!
-    io.emit('new-message', socket.handshake.session.username + ' : ' + msg);
-    //Autre alternative : envoyer le message à tous les autres socket ormis celui qui envoie
-    //socket.broadcast.emit('new-message', msg);
-  });
+    socket.on('sendPieceMove', (data) => {
+      console.log('Move piece : ' + data);
+      io.to(socket.handshake.session.roomId).emit('sendPieceMoveToRoom', data);
+      //io.to(socket.handshake.session.roomId).emit('checkSend', "good");
+      console.log(io.sockets.adapter.rooms.get(socket.handshake.session.roomId));
+    });
 
   socket.on('disconnect', () => {
     io.emit('new-message', 'Serveur : Utilisateur ' + socket.handshake.session.username + ' vient de se déconnecter');
@@ -100,4 +139,3 @@ io.on('connection', (socket) => {
 http.listen(258, () => {
   console.log('Serveur lancé sur le port 258');
 });
-
