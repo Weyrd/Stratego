@@ -28,6 +28,101 @@ export default class Terrain{
   }
   generateRamdomLake(){} //TODO MAYBE
 
+  RandomPiecePlacing(){
+    if (terr.matrix.length == 10 && terr.matrix[0].length == 10){
+      let POrder = [10, 9, 8,8, 7,7,7, 6,6,6,6, 5,5,5,5, 4,4,4,4 3,3,3,3,3, 2,2,2,2,2,2,2,2, 1, 0, -1,-1,-1,-1,-1,-1];
+      POrder.sort((a,b) => 0.5 - Math.random());
+      for (var i = 0; i < 40; i++) {
+        X = i%4;
+        Y = i%10;
+        switch (POrder[i]) {
+          case 10:
+            terr.matrix[X][Y].addPiece(4, 10, 1);
+            break;
+          case 9:
+            terr.matrix[X][Y].addPiece(0, 9, 1);
+            break;
+          case 8:
+            terr.matrix[X][Y].addPiece(0, 8, 1);
+            break;
+          case 7:
+            terr.matrix[X][Y].addPiece(0, 7, 1);
+            break;
+          case 6:
+            terr.matrix[X][Y].addPiece(0, 6, 1);
+            break;
+          case 5:
+            terr.matrix[X][Y].addPiece(0, 5, 1);
+            break;
+          case 4:
+            terr.matrix[X][Y].addPiece(0, 4, 1);
+            break;
+          case 3:
+            terr.matrix[X][Y].addPiece(3, 3, 1);
+              break;
+          case 2:
+            terr.matrix[X][Y].addPiece(2, 2, 1);
+            break;
+          case 1:
+            terr.matrix[X][Y].addPiece(1, 1, 1);
+            break;
+          case 0:
+            terr.matrix[X][Y].addPiece(6, 0, 1);
+            break;
+          case -1:
+            terr.matrix[X][Y].addPiece(5, 0, 1);
+            break;
+          default:
+            break;
+        }
+      }
+      POrder.sort((a,b) => 0.5 - Math.random());
+      for (var j = 0; j < 40; j++) {
+        X = j%4 + 6;
+        Y = j%10;
+        switch (POrder[j]) {
+          case 10:
+            terr.matrix[X][Y].addPiece(4, 10, 2);
+            break;
+          case 9:
+            terr.matrix[X][Y].addPiece(0, 9, 2);
+            break;
+          case 8:
+            terr.matrix[X][Y].addPiece(0, 8, 2);
+            break;
+          case 7:
+            terr.matrix[X][Y].addPiece(0, 7, 2);
+            break;
+          case 6:
+            terr.matrix[X][Y].addPiece(0, 6, 2);
+            break;
+          case 5:
+            terr.matrix[X][Y].addPiece(0, 5, 2);
+            break;
+          case 4:
+            terr.matrix[X][Y].addPiece(0, 4, 2);
+            break;
+          case 3:
+            terr.matrix[X][Y].addPiece(3, 3, 2);
+              break;
+          case 2:
+            terr.matrix[X][Y].addPiece(2, 2, 2);
+            break;
+          case 1:
+            terr.matrix[X][Y].addPiece(1, 1, 2);
+            break;
+          case 0:
+            terr.matrix[X][Y].addPiece(6, 0, 2);
+            break;
+          case -1:
+            terr.matrix[X][Y].addPiece(5, 0, 2);
+            break;
+          default:
+            break;
+          }
+      }
+    }
+  }
 
   static MovePieceTo(terr, AX, AY, BX, BY){
     if (terr.matrix[AX][AY].hasPiece) {
