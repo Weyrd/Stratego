@@ -5,7 +5,6 @@
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="css/boostrap.min.css">
 		<link rel="stylesheet" href="css/boostrap-theme.min.css">
-		<link rel="stylesheet" href="style.css">
 		<link rel="stylesheet" href="contact.css">
 </head>
 
@@ -15,30 +14,63 @@
 		<ul>
 			<li class ="current-item is-activate"><a href="menu.html">Bienvenue</a></li>
 			<li class ="current-item"><a href="">Jeu</a></li>
-			<li class ="current-item"><a href="">LeaderBoard</a></li>
 			<li class ="current-item"><a href="contact.html">Contact</a></li>
 		</ul>
 	</div>
 
- <div class="content">
-      <div class="text">Identification</div>
- <form action="#">
-        <div class="field">
-          <input type="text" required>
-          <span class="fas fa-user"></span>
-          <label>Email</label>
-        </div>
-  <div class="field">
-          <input type="password" required>
-          <span class="fas fa-lock"></span>
-          <label>Mot de passe</label>
-  </div>
-  <div class="forgot-pass">
-  <a href="#">Mot de passe perdu ?</a></div>
-  <button>S'identifier</button>
-        <div class="sign-up">Pas identifier ?<a href="#"> Inscris toi</a>
-        </div>
+<div class="container" id="container">
+<div class="form-container sign-up-container">
+
+<form action="">
+	<h1>Créer un compte</h1>
+	<span>********************************************************</span>
+	<input type="text" name="name" placeholder="Pseudo">
+	<input type="email" name="email" placeholder="Email">
+	<input type="password" name="password" placeholder="Mot de passe">
+		<input type="password" name="password" placeholder="Confirmation du mot de passe">
+	</br>
+	<button>S'inscrire</button>
 </form>
 </div>
-</body>
+<div class="form-container sign-in-container">
+	<form action="#">
+		<h1>S'identifier</h1>
+	<span>****************************************</span>
+	<input type="email" name="email" placeholder="Email">
+	<input type="password" name="password" placeholder="Mot de passe">
+	<a href="#">Mot de passe perdu ?</a>
+
+	<button>S'identifier</button>
+	</form>
+</div>
+<div class="overlay-container">
+	<div class="overlay">
+		<div class="overlay-panel overlay-left">
+			<h1>Te revoilà !</h1>
+			<p>Identifie toi</p>
+			<button class="ghost" id="signIn">S'identifier</button>
+		</div>
+		<div class="overlay-panel overlay-right">
+			<h1>Bienvenue</h1>
+			<p>Inscrivez vous</p>
+			<button class="ghost" id="signUp">S'inscrire</button>
+		</div>
+	</div>
+</div>
+</div>
+
+<script type="text/javascript">
+	const signUpButton = document.getElementById('signUp');
+	const signInButton = document.getElementById('signIn');
+	const container = document.getElementById('container');
+
+	signUpButton.addEventListener('click', () => {
+		container.classList.add("right-panel-active");
+	});
+	signInButton.addEventListener('click', () => {
+		container.classList.remove("right-panel-active");
+	});
+</script>
+
+	</body>
 </html>
