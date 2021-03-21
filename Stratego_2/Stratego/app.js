@@ -1,26 +1,21 @@
-/*===== LOGIN SHOW and HIDDEN =====*/
-const signUp = document.getElementById('sign-up'),
-    signIn = document.getElementById('sign-in'),
-    loginIn = document.getElementById('login-in'),
-    loginUp = document.getElementById('login-up')
+var text = document.querySelector('.text');
+var percent = document.querySelector('.percent');
+var progress = document.querySelector('.progress');
+var count = 4;
+var per = 16;
+var loading = setInterval(animate, 50);
 
-
-signUp.addEventListener('click', ()=>{
-    // Remove classes first if they exist
-    loginIn.classList.remove('block')
-    loginUp.classList.remove('none')
-
-    // Add classes
-    loginIn.classList.toggle('none')
-    loginUp.classList.toggle('block')
-})
-
-signIn.addEventListener('click', ()=>{
-    // Remove classes first if they exist
-    loginIn.classList.remove('none')
-    loginUp.classList.remove('block')
-
-    // Add classes
-    loginIn.classList.toggle('block')
-    loginUp.classList.toggle('none')
-})
+function animate(){
+    if(count == 100 && per == 400){
+        text.textContent = "Compléter";
+        text.style.fontSize = "45px";
+        text.classList.add("add");
+        clearInterval(loading);
+    }
+    else{
+        per = per + 4;
+        count = count + 1;
+        progress.style.width = per + 'px';
+        percent.textContent = count + '%';
+    }
+}
