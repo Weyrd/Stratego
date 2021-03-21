@@ -8,7 +8,7 @@ var loading = setInterval(animate, 50);
 function animate(){
     if(count == 100 && per == 400){
         text.textContent = "Compléter";
-        text.style.fontSize = "45px";
+        text.style.fontSize = "65px";
         text.classList.add("add");
         clearInterval(loading);
     }
