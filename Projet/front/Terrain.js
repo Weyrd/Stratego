@@ -30,8 +30,8 @@ export default class Terrain{
 
   RandomPiecePlacing(){
     if (terr.matrix.length == 10 && terr.matrix[0].length == 10){
-      let POrder = [10, 9, 8,8, 7,7,7, 6,6,6,6, 5,5,5,5, 4,4,4,4 3,3,3,3,3, 2,2,2,2,2,2,2,2, 1, 0, -1,-1,-1,-1,-1,-1];
-      POrder.sort((a,b) => 0.5 - Math.random());
+      let POrder = [10, 9, 8,8, 7,7,7, 6,6,6,6, 5,5,5,5, 4,4,4,4, 3,3,3,3,3, 2,2,2,2,2,2,2,2, 1, 0, -1,-1,-1,-1,-1,-1];
+      POrder.sort((a,b) => 0.5 - Math.random()); //shuffle
       for (var i = 0; i < 40; i++) {
         X = i%4;
         Y = i%10;
@@ -256,4 +256,6 @@ export default class Terrain{
       return(-1);
     }
   }
+
+
 }
