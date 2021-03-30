@@ -20,8 +20,8 @@ const { body, validationResult } = require('express-validator');
 
 var currentroomId = 0;
 /**** Import project libs ****/
+Terrain = require("./front/Class.js")
 
-//const states = require('./back/modules/states');
 
 /**** Project configuration ****/
 
@@ -73,6 +73,19 @@ app.post('/login', body('login').isLength({ min: 3 }).trim().escape(), (req, res
   }
 });
 
+
+function findClientsSocketByRoomId(roomId) {
+var res = []
+, room = io.sockets.adapter.rooms[roomId];
+if (room) {
+    for (var id in room) {
+    res.push(io.sockets.adapter.nsp.connected[id]);
+    }
+}
+return res;
+}
+
+
 function matchmacking(socket) {
   if(socket.rooms.size == 1) {
     joinRoom = false;
@@ -92,6 +105,7 @@ function matchmacking(socket) {
         roomId = "roomId-" + currentroomId;
         socket.join(roomId);
         currentroomId++;
+        io.in(roomId).emit("loading");
       }
   }
   io.to(socket).emit("postRoom", roomId)
@@ -107,28 +121,43 @@ function matchmacking(socket) {
 io.on('connection', (socket) => {
   console.log('Un Utilisateur s\'est connecté\n');
   matchmacking(socket)
-  //io.emit('new-message', 'Utilisateur ' + socket.handshake.session.username + ' vient de se connecter');
 
-
-    /*socket.on("login", () => {
-      let srvSockets = io.sockets.sockets;
-      srvSockets.forEach(user => {
-        console.log(user.handshake.session.username);
-      });
-      io.emit('new-message', 'Utilisateur ' + socket.handshake.session.username + ' vient de se connecter');
-    });*/
-
-    socket.on('message', (msg) => {
-      console.log('message: ' + msg);
-      io.emit('new-message', socket.handshake.session.username + ' : ' + msg);
+    socket.on("createTerr", () => {
+      socket.handshake.session.terr = new Terrain(10, 10);
+      socket.handshake.session.terr.generateVanillaLake();
+      socket.handshake.session.terr.RandomPiecePlacing();
+      socket.handshake.session.save()
+      socket.emit("getTerr", socket.handshake.session.terr);
     });
 
-    socket.on('sendPieceMove', (data) => {
-      console.log('Move piece : ' + data);
+    socket.on("postTerr", (terr) => {
+      socket.handshake.session.terr = terr;
+      socket.handshake.session.save()
+      socket.emit("getTerr", socket.handshake.session.terr);
+    });
+
+    socket.on("getTerr", (terr) => {
+      socket.emit("getTerr",   socket.handshake.session.terr);
+    });
+
+
+    socket.on('sendPieceMoveToServer', (data) => {
+      console.log('Coup reçu sur le serveur : ',  data["AX"], data["AY"], data["BX"], data["BY"]);
+      data["terrain"] =   socket.handshake.session.terr;
+
       io.to(socket.handshake.session.roomId).emit('sendPieceMoveToRoom', data);
-      //io.to(socket.handshake.session.roomId).emit('checkSend', "good");
-      console.log(io.sockets.adapter.rooms.get(socket.handshake.session.roomId));
+      socket.handshake.session.save()
     });
+
+    socket.on('sendPieceMovePlayer', (data) => {
+      console.log(socket.id, ' -> move piece : ',  data["AX"], data["AY"], data["BX"], data["BY"]);
+      err = socket.handshake.session.terr.MovePieceTo(socket.handshake.session.terr, data["AX"], data["AY"], data["BX"], data["BY"]);
+
+      io.in(socket.handshake.session.roomId).emit('check', err);
+      socket.handshake.session.save()
+    });
+
+
 
   socket.on('disconnect', () => {
     io.emit('new-message', 'Serveur : Utilisateur ' + socket.handshake.session.username + ' vient de se déconnecter');

@@ -1,6 +1,58 @@
-import Case from './Case.js'
+class Piece{
+  constructor(pieceType, power, player){
+    this.pieceType = pieceType;
+    // 0 = normal
+    // 1 = espion
+    // 2 = eclaireur
+    // 3 = demineur
+    // 4 = maréchal
+    // 5 = bombe
+    // 6 = drapeau
+    this.power = power;
+    this.player = player;
+  }
+  static engageCombat(attack, def){ //attack = start piece, def = dest piece
+    if(def.pieceType == 6){
+      return(3); // Win, flag is down !
+    }
+    else{
+      if((attack.power == def.power) || (def.pieceType == 5 && attack.pieceType != 3)){
+        return(0); // 2 pieces destroyed
+      }
+      else if(attack.power >= def.power){
+        return(1); // def piece destroyed
+      }
+      else if(attack.power <= def.power){
+        if(attack.pieceType == 1 && def.pieceType == 4){
+          return(1); //special rule, def piece destroyed
+        }
+        else{
+          return(2);// attack piece destroyed
+        }
+      }
+    }
+  }
+}
 
-export default class Terrain{
+class Case{
+  constructor(){
+    this.water = false;
+    this.hasPiece = false;
+    this.Piece;
+  }
+  addPiece(pieceType, power, player){
+      this.Piece = new Piece(pieceType, power, player);
+      this.hasPiece = true;
+  }
+  transformToWater(){
+    this.water = true;
+    this.hasPiece = false;
+    this.Piece = null;
+  }
+
+}
+
+class Terrain{
   constructor(size_x, size_y) {
     //this.matrix = new Array(size_x).fill(new Array(size_y).fill(new Case()));
     this.matrix = new Array(size_x);
@@ -29,48 +81,48 @@ export default class Terrain{
   generateRamdomLake(){} //TODO MAYBE
 
   RandomPiecePlacing(){
-    if (terr.matrix.length == 10 && terr.matrix[0].length == 10){
+    if (this.matrix.length == 10 && this.matrix[0].length == 10){
       let POrder = [10, 9, 8,8, 7,7,7, 6,6,6,6, 5,5,5,5, 4,4,4,4, 3,3,3,3,3, 2,2,2,2,2,2,2,2, 1, 0, -1,-1,-1,-1,-1,-1];
       POrder.sort((a,b) => 0.5 - Math.random()); //shuffle
       for (var i = 0; i < 40; i++) {
-        X = i%4;
-        Y = i%10;
+        let X = i%4;
+        let Y = i%10;
         switch (POrder[i]) {
           case 10:
-            terr.matrix[X][Y].addPiece(4, 10, 1);
+            this.matrix[X][Y].addPiece(4, 10, 1);
             break;
           case 9:
-            terr.matrix[X][Y].addPiece(0, 9, 1);
+            this.matrix[X][Y].addPiece(0, 9, 1);
             break;
           case 8:
-            terr.matrix[X][Y].addPiece(0, 8, 1);
+            this.matrix[X][Y].addPiece(0, 8, 1);
             break;
           case 7:
-            terr.matrix[X][Y].addPiece(0, 7, 1);
+            this.matrix[X][Y].addPiece(0, 7, 1);
             break;
           case 6:
-            terr.matrix[X][Y].addPiece(0, 6, 1);
+            this.matrix[X][Y].addPiece(0, 6, 1);
             break;
           case 5:
-            terr.matrix[X][Y].addPiece(0, 5, 1);
+            this.matrix[X][Y].addPiece(0, 5, 1);
             break;
           case 4:
-            terr.matrix[X][Y].addPiece(0, 4, 1);
+            this.matrix[X][Y].addPiece(0, 4, 1);
             break;
           case 3:
-            terr.matrix[X][Y].addPiece(3, 3, 1);
+            this.matrix[X][Y].addPiece(3, 3, 1);
               break;
           case 2:
-            terr.matrix[X][Y].addPiece(2, 2, 1);
+            this.matrix[X][Y].addPiece(2, 2, 1);
             break;
           case 1:
-            terr.matrix[X][Y].addPiece(1, 1, 1);
+            this.matrix[X][Y].addPiece(1, 1, 1);
             break;
           case 0:
-            terr.matrix[X][Y].addPiece(6, 0, 1);
+            this.matrix[X][Y].addPiece(6, 0, 1);
             break;
           case -1:
-            terr.matrix[X][Y].addPiece(5, 0, 1);
+            this.matrix[X][Y].addPiece(5, 0, 1);
             break;
           default:
             break;
@@ -78,44 +130,44 @@ export default class Terrain{
       }
       POrder.sort((a,b) => 0.5 - Math.random());
       for (var j = 0; j < 40; j++) {
-        X = j%4 + 6;
-        Y = j%10;
+        let X = j%4 + 6;
+        let Y = j%10;
         switch (POrder[j]) {
           case 10:
-            terr.matrix[X][Y].addPiece(4, 10, 2);
+            this.matrix[X][Y].addPiece(4, 10, 2);
             break;
           case 9:
-            terr.matrix[X][Y].addPiece(0, 9, 2);
+            this.matrix[X][Y].addPiece(0, 9, 2);
             break;
           case 8:
-            terr.matrix[X][Y].addPiece(0, 8, 2);
+            this.matrix[X][Y].addPiece(0, 8, 2);
             break;
           case 7:
-            terr.matrix[X][Y].addPiece(0, 7, 2);
+            this.matrix[X][Y].addPiece(0, 7, 2);
             break;
           case 6:
-            terr.matrix[X][Y].addPiece(0, 6, 2);
+            this.matrix[X][Y].addPiece(0, 6, 2);
             break;
           case 5:
-            terr.matrix[X][Y].addPiece(0, 5, 2);
+            this.matrix[X][Y].addPiece(0, 5, 2);
             break;
           case 4:
-            terr.matrix[X][Y].addPiece(0, 4, 2);
+            this.matrix[X][Y].addPiece(0, 4, 2);
             break;
           case 3:
-            terr.matrix[X][Y].addPiece(3, 3, 2);
+            this.matrix[X][Y].addPiece(3, 3, 2);
               break;
           case 2:
-            terr.matrix[X][Y].addPiece(2, 2, 2);
+            this.matrix[X][Y].addPiece(2, 2, 2);
             break;
           case 1:
-            terr.matrix[X][Y].addPiece(1, 1, 2);
+            this.matrix[X][Y].addPiece(1, 1, 2);
             break;
           case 0:
-            terr.matrix[X][Y].addPiece(6, 0, 2);
+            this.matrix[X][Y].addPiece(6, 0, 2);
             break;
           case -1:
-            terr.matrix[X][Y].addPiece(5, 0, 2);
+            this.matrix[X][Y].addPiece(5, 0, 2);
             break;
           default:
             break;
@@ -124,15 +176,13 @@ export default class Terrain{
     }
   }
 
-  static MovePieceTo(terr, AX, AY, BX, BY){
-    socket.emit("sendPieceMove", {"terrain" : terr, "AX" : AX, "AY": AY, "BX": BX, "BY": BY});
-
+  MovePieceTo(terr, AX, AY, BX, BY){
     if (terr.matrix[AX][AY].hasPiece) {
       //Type of Pieces movement restriction check___________________________________________________________
       //Bomb & Flag
       if(terr.matrix[AX][AY].Piece.pieceType == 5 || terr.matrix[AX][AY].Piece.pieceType == 6){
-        console.log("error not mouvable piece");
-        return(-1);
+        //console.log("error not mouvable piece");
+        return("error not mouvable piece");
       }
       //scout or not scout
       if(terr.matrix[AX][AY].Piece.pieceType == 1){
@@ -142,23 +192,23 @@ export default class Terrain{
             if (dist <= 3) {
               for (var i = 1; i < dist; i++) {
                 if (terr.matrix[AX][AY+i].hasPiece) {
-                  console.log("Piece in the way");
-                  return(-1);
+                  //console.log("Piece in the way");
+                  return("Piece in the way");
                 }
               }
             }
             if (dist >= -3) {
               for (var i = -1; i < dist; i--) {
                 if (terr.matrix[AX][AY+i].hasPiece) {
-                  console.log("Piece in the way");
-                  return(-1);
+                  //console.log("Piece in the way");
+                  return("Piece in the way");
                 }
               }
             }
           }
           else {
-            console.log("error select a valid movement");
-            return(-1);
+            //console.log("error select a valid movement");
+            return("error select a valid movement");
           }
         }
         else if (AY == BY) {
@@ -167,34 +217,34 @@ export default class Terrain{
             if (dist <= 3) {
               for (var i = 1; i < dist; i++) {
                 if (terr.matrix[AX+i][AY].hasPiece) {
-                  console.log("Piece in the way");
-                  return(-1);
+                  //console.log("Piece in the way");
+                  return("Piece in the way");
                 }
               }
             }
             if (dist >= -3) {
               for (var i = -1; i < dist; i--) {
                 if (terr.matrix[AX+i][AY].hasPiece) {
-                  console.log("Piece in the way");
-                  return(-1);
+                  //console.log("Piece in the way");
+                  return("Piece in the way");
                 }
               }
             }
           }
           else {
-            console.log("error select a valid movement");
-            return(-1);
+            //console.log("error select a valid movement");
+            return("error select a valid movement");
           }
         }
         else {
-          console.log("error select a valid movement");
-          return(-1);
+          //console.log("error select a valid movement");
+          return("error select a valid movement");
         }
       }
       else {
         if (!((AX == BX && Math.abs(AY-BY) == 1)||(AY == BY && Math.abs(AX-BX) == 1))) {
-          console.log("error select a valid movement");
-          return(-1);
+          //console.log("error select a valid movement");
+          return("error select a valid movement");
         }
       }
       //Other check_________________________________________________________________________________________
@@ -235,8 +285,8 @@ export default class Terrain{
             return(ComRe);
           }
           else {
-            console.log("error friendly piece on destination");
-            return(-1);
+            //console.log("error friendly piece on destination");
+            return("error friendly piece on destination");
           }
         }
         else {
@@ -247,15 +297,19 @@ export default class Terrain{
         }
       }
       else {
-        console.log("error water on destination");
-        return(-1);
+        //console.log("error water on destination");
+        return("error water on destination");
       }
     }
     else {
-      console.log("error no piece on start");
-      return(-1);
+      //console.log("error no piece on start");
+      return("error no piece on start");
     }
+    return("Done.")
   }
 
 
 }
+
+
+module.exports = Terrain;
