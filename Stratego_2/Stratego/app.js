@@ -19,3 +19,4 @@ function animate(){
         percent.textContent = count + '%';
     }
 }
+
