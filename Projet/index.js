@@ -49,11 +49,7 @@ if (app.get('env') === 'production') {
 
 app.get('/', (req, res) => {
 //  states.printServerStatus();
-  res.sendFile(__dirname + '/front/testground.html');
-});
-
-app.get('/game', (req, res) => {
-    res.sendFile(__dirname + '/front/html/game.html');
+  res.sendFile(__dirname + '/front/jeu.html');
 });
 
 

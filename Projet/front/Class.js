@@ -1,3 +1,5 @@
+//On a une classe parce qu'on avait ds problèmes d'import
+
 class Piece{
   constructor(pieceType, power, player){
     this.pieceType = pieceType;
@@ -311,5 +313,25 @@ class Terrain{
 
 }
 
+class InterfaceView{
+  constructor(game){
+		this.game = game;
+    this.listeners();
+  }
+
+  listeners(){
+    let tab = document.getElementById("Plateau");
+    for(let x = 0; x < 10; x++) {
+      for(let y = 0; y < 10; y++) {
+        tab.rows[x].cells[y].addEventListener('click',() => {this.click_event(x, y);} );
+      }
+    }
+  }
+
+  click_event(x, y){
+  //TODO
+  }
+
+}
 
 module.exports = Terrain;
