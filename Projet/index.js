@@ -149,6 +149,8 @@ io.on('connection', (socket) => {
       console.log(socket.id, ' -> addpiece  : ',  data["x"], data["y"], data["pieceType"], data["power"], data["player"]);
       if(typeof socket.handshake.session.terr !== "undefined"){
         err =  socket.handshake.session.terr.matrix[data["x"]][data["y"]].addPiece(data["pieceType"], data["power"], data["player"]);
+
+        //io.in(socket.handshake.session.roomId).emit('check', err);
         socket.handshake.session.save()
         socket.emit("getTerr", socket.handshake.session.terr);
       }
@@ -158,7 +160,7 @@ io.on('connection', (socket) => {
 
     socket.on('sendPieceMoveToServer', (data) => {
       console.log('Coup reçu sur le serveur : ',  data["AX"], data["AY"], data["BX"], data["BY"]);
-      data["terrain"] =   socket.handshake.session.terr;
+      data["terrain"] =  socket.handshake.session.terr;
 
       io.to(socket.handshake.session.roomId).emit('sendPieceMoveToRoom', data);
       socket.handshake.session.save()
@@ -176,7 +178,7 @@ io.on('connection', (socket) => {
 
 
   socket.on('disconnect', () => {
-    io.in(socket.handshake.session.roomId).emit('check', err);
+    io.in(socket.handshake.session.roomId).emit('otherPlayerDisco');
     console.log('Un Utilisateur s\'est déconnecté');
   });
 });

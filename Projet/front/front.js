@@ -15,7 +15,7 @@ socket.on("numberPlayer", (data) => {
 });
 
 socket.on("otherPlayerDisco", () => {
-  alert("L'autre joueur à une co de merde");
+  alert("L'autre joueur à une co de merde désolé");
 });
 
 socket.on("loading", () => {
