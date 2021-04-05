@@ -351,4 +351,4 @@ class InterfaceView{
   }
 }
 
-module.exports = Terrain;
+module.exports = {Terrain, InterfaceView};
