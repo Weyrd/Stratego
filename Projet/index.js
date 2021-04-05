@@ -179,7 +179,7 @@ io.on('connection', (socket) => {
 
       //io.in(socket.handshake.session.roomId).emit('check', err);
       socket.handshake.session.save()
-      if(err = 0){
+      if(err == 0){
           io.to(socket.handshake.session.roomId).emit('nextPlayer');
       }
       socket.emit("getTerr", socket.handshake.session.terr);

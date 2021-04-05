@@ -1,8 +1,7 @@
 var terrain,
     player,
-    gamePhase = 0,
+    gamePhase = false,
     playersState = [0, 0]
-    playerTurn = 1,
     lastCX = -1,
     lastCY= -1;
 
@@ -45,11 +44,11 @@ socket.on("otherPlayerDisco", () => {
 });
 
 socket.on("nextPlayer", () => {
-  if(playerTurn == 1){
-    playerTurn = 2;
+  if(gamePhase == 1){
+    gamePhase = 2;
   }
   else{
-  playerTurn = 1
+  gamePhase = 1
   }
 });
 
@@ -79,22 +78,18 @@ function getTerr() {
 
 
 function swapePiece(AX, AY, BX, BY) {
-  if(gamePhase==0){
     socket.emit("SwapPieceToServer", {"AX" : AX, "AY": AY, "BX": BX, "BY": BY, "player": player});
-  }
 }
 
 
 function movePiece(AX, AY, BX, BY) {
-  if(gamePhase==1 && player == playerTurn){
+  if(player == gamePhase){
     socket.emit("sendPieceMoveToServer", {"AX" : AX, "AY": AY, "BX": BX, "BY": BY, "player": player});
   }
 }
 
 function addPiece(x,y, pieceType, power, player) {
-  if(gamePhase==-1){
     socket.emit("addPieceToServer", {"terrain": terrain, "x": x, "y": y, "pieceType": pieceType, "power": power, "player":player})
-  }
 }
 
 $( document ).ready(function() {
