@@ -22,6 +22,10 @@ socket.on("check", (msg) => {
   console.log(msg);
 });
 
+socket.on("getInterView", (InterView) => {
+  console.log(InterView);
+});
+
 
 function getTerr() {
   socket.emit("getTerr");
@@ -32,3 +36,8 @@ function movePiece(AX, AY, BX, BY) {
   socket.emit("sendPieceMoveToServer", {"AX" : AX, "AY": AY, "BX": BX, "BY": BY});
 
 }
+
+
+$( document ).ready(function() {
+    socket.emit("createTerr");
+});
