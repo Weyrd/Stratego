@@ -21,7 +21,7 @@ socket.on("start", () => {
 
 socket.on("getTerr", (terr) => {
   terrain = terr;
-  RefreshTer()
+  RefreshTer();
   console.log(terrain);
 });
 
@@ -65,7 +65,6 @@ function click_event(x, y){
 
 
 function PlayTest(x, y){
-  let tab = document.getElementById("Plateau");
   if(!terrain.matrix[x][y].hasPiece){
     addPiece(x,y, 0, 4, 1);
   }
@@ -76,6 +75,7 @@ function PlayTest(x, y){
 }
 
 function RefreshTer() {
+  let tab = document.getElementById("Plateau");
   for (let i = 0; i < terrain.matrix.length; i++) {
     for (let j = 0; j < terrain.matrix[i].length; j++) {
       //console.log(tab.rows[i].cells[j]);
