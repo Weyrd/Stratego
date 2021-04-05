@@ -121,12 +121,12 @@ function click_event(x, y){
         movePiece(lastCX, lastCY, x, y);
         lastCX = -1;
         lastCY = -1;
-        return()
+        return(0);
       }
       else {
         lastCX = x;
         lastCY = y;
-        return();
+        return(0);
       }
     }
   }
@@ -135,12 +135,12 @@ function click_event(x, y){
       SwapPiece(lastCX, lastCY, x, y);
       lastCX = -1;
       lastCY = -1;
-      return()
+      return(0);
     }
     else {
       lastCX = x;
       lastCY = y;
-      return();
+      return(0);
     }
   }
   //PlayTest(x, y);
