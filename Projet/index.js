@@ -168,7 +168,7 @@ io.on('connection', (socket) => {
       console.log(socket.id, ' -> move piece : ',  data["AX"], data["AY"], data["BX"], data["BY"]);
       err = socket.handshake.session.terr.MovePieceTo(socket.handshake.session.terr, data["AX"], data["AY"], data["BX"], data["BY"]);
 
-      io.in(socket.handshake.session.roomId).emit('check', err);
+      //io.in(socket.handshake.session.roomId).emit('check', err);
       socket.handshake.session.save()
       socket.emit("getTerr", socket.handshake.session.terr);
     });
@@ -176,7 +176,7 @@ io.on('connection', (socket) => {
 
 
   socket.on('disconnect', () => {
-    io.emit('new-message', 'Serveur : Utilisateur ' + socket.handshake.session.username + ' vient de se déconnecter');
+    io.in(socket.handshake.session.roomId).emit('check', err);
     console.log('Un Utilisateur s\'est déconnecté');
   });
 });
