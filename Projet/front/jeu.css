@@ -46,3 +46,10 @@ tbody {
 	display: block;
 	vertical-align: bottom;
 }
+
+.Piece{
+	display: block;
+	vertical-align: bottom;
+	height: 100px;
+	width: 67px;
+}
