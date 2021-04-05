@@ -320,15 +320,20 @@ class Terrain{
   }
 
   SwapPiece(terr, AX, AY, BX, BY, Player){
-    if(terr.matrix[AX][AY].Piece.player == Player && terr.matrix[BX][BY].Piece.player == Player){
-      let tmp = new Piece(0,0,0);
-      tmp = terr.matrix[AX][AY].Piece;
-      terr.matrix[AX][AY].Piece = terr.matrix[BX][BY].Piece;
-      terr.matrix[BX][BY].Piece = tmp;
-      return(0);
+    if(terr.matrix[AX][AY].hasPiece && terr.matrix[BX][BY].hasPiece) {
+      if(terr.matrix[AX][AY].Piece.player == Player && terr.matrix[BX][BY].Piece.player == Player){
+        let tmp = new Piece(0,0,0);
+        tmp = terr.matrix[AX][AY].Piece;
+        terr.matrix[AX][AY].Piece = terr.matrix[BX][BY].Piece;
+        terr.matrix[BX][BY].Piece = tmp;
+        return(0);
+      }
+      else {
+        return("error not your piece");
+      }
     }
     else {
-      return("error not your piece");
+      return("shit no");
     }
   }
 
