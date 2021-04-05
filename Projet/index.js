@@ -90,6 +90,7 @@ function matchmacking(socket) {
         if(value.size == 1){
           roomId = key;
           socket.join(roomId)
+          socket.emit("numberPlayer", 2)
           joinRoom = true;
           break;
         }
@@ -99,6 +100,7 @@ function matchmacking(socket) {
       if(!joinRoom){
         roomId = "roomId-" + currentroomId;
         socket.join(roomId);
+        socket.emit("numberPlayer", 1)
         currentroomId++;
         io.in(roomId).emit("loading");
       }

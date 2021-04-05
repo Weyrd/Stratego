@@ -1,4 +1,4 @@
-var terrain;
+var terrain, player;
 socket.on('sendPieceMoveToRoom', (data) => {
   console.log('Move piece recu : ', data["terrain"], data["AX"], data["AY"], data["BX"], data["BY"]);
   socket.emit("sendPieceMovePlayer", data);
@@ -7,6 +7,11 @@ socket.on('sendPieceMoveToRoom', (data) => {
 socket.on('addPieceToRoom', (data) => {
   console.log('addPiece recu : ', data["terrain"], data["x"], data["y"], data["pieceType"], data["power"], data["player"]);
   socket.emit("addPiecePlayer", data);
+});
+
+socket.on("numberPlayer", (data) => {
+  console.log("Tu es le joueur : ", data);
+  player = data;
 });
 
 
