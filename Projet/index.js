@@ -48,7 +48,6 @@ if (app.get('env') === 'production') {
 /**** Code ****/
 
 app.get('/', (req, res) => {
-//  states.printServerStatus();
   res.sendFile(__dirname + '/front/jeu.html');
 });
 
@@ -122,10 +121,8 @@ io.on('connection', (socket) => {
       socket.handshake.session.terr = new Terrain(10, 10);
       socket.handshake.session.terr.generateVanillaLake();
       socket.handshake.session.terr.RandomPiecePlacing();
-      //socket.handshake.session.InterView = new InterfaceView(socket.handshake.session.terr);
       socket.handshake.session.save()
       socket.emit("getTerr", socket.handshake.session.terr);
-      //socket.emit("getInterView", socket.handshake.session.InterView);
     });
 
     socket.on("postTerr", (terr) => {
@@ -150,6 +147,7 @@ io.on('connection', (socket) => {
       console.log(socket.id, ' -> addpiece  : ',  data["x"], data["y"], data["pieceType"], data["power"], data["player"]);
       err =  socket.handshake.session.terr.matrix[data["x"]][data["y"]].addPiece(data["pieceType"], data["power"], data["player"]);
       socket.handshake.session.save()
+      socket.emit("getTerr", socket.handshake.session.terr);
     });
 
 
@@ -168,6 +166,7 @@ io.on('connection', (socket) => {
 
       io.in(socket.handshake.session.roomId).emit('check', err);
       socket.handshake.session.save()
+      socket.emit("getTerr", socket.handshake.session.terr);
     });
 
 
