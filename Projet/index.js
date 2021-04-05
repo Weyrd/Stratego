@@ -139,6 +139,21 @@ io.on('connection', (socket) => {
     });
 
 
+    socket.on('addPieceToServer', (data) => {
+      console.log('Addpiece sur le serveur : ',  data["x"], data["y"], data["pieceType"], data["power"], data["player"]);
+      data["terrain"] =   socket.handshake.session.terr;
+      io.to(socket.handshake.session.roomId).emit('addPieceToRoom', data);
+      socket.handshake.session.save()
+    });
+
+    socket.on('addPiecePlayer', (data) => {
+      console.log(socket.id, ' -> addpiece  : ',  data["x"], data["y"], data["pieceType"], data["power"], data["player"]);
+      err =  socket.handshake.session.terr.matrix[data["x"]][data["y"]].addPiece(data["pieceType"], data["power"], data["player"]);
+      socket.handshake.session.save()
+    });
+
+
+
     socket.on('sendPieceMoveToServer', (data) => {
       console.log('Coup reçu sur le serveur : ',  data["AX"], data["AY"], data["BX"], data["BY"]);
       data["terrain"] =   socket.handshake.session.terr;

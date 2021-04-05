@@ -82,6 +82,10 @@ class Terrain{
   }
   generateRamdomLake(){} //TODO MAYBE
 
+  addPiece2(x,y,z){
+
+  }
+
   RandomPiecePlacing(){
     if (this.matrix.length == 10 && this.matrix[0].length == 10){
       let POrder = [10, 9, 8,8, 7,7,7, 6,6,6,6, 5,5,5,5, 4,4,4,4, 3,3,3,3,3, 2,2,2,2,2,2,2,2, 1, 0, -1,-1,-1,-1,-1,-1];
