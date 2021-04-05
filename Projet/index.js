@@ -20,7 +20,7 @@ const { body, validationResult } = require('express-validator');
 
 var currentroomId = 0;
 /**** Import project libs ****/
-const {Terrain, InterfaceView} = require("./back/Class.js")
+const Terrain = require("./back/Class.js")
 
 
 /**** Project configuration ****/
@@ -145,9 +145,11 @@ io.on('connection', (socket) => {
 
     socket.on('addPiecePlayer', (data) => {
       console.log(socket.id, ' -> addpiece  : ',  data["x"], data["y"], data["pieceType"], data["power"], data["player"]);
-      err =  socket.handshake.session.terr.matrix[data["x"]][data["y"]].addPiece(data["pieceType"], data["power"], data["player"]);
-      socket.handshake.session.save()
-      socket.emit("getTerr", socket.handshake.session.terr);
+      if(typeof socket.handshake.session.terr !== "undefined"){
+        err =  socket.handshake.session.terr.matrix[data["x"]][data["y"]].addPiece(data["pieceType"], data["power"], data["player"]);
+        socket.handshake.session.save()
+        socket.emit("getTerr", socket.handshake.session.terr);
+      }
     });
 
 
