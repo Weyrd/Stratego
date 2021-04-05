@@ -41,7 +41,7 @@ function movePiece(AX, AY, BX, BY) {
 }
 
 function addPiece(x,y, pieceType, power, player) {
-  console.log("test");
+  //console.log("test");
   socket.emit("addPieceToServer", {"terrain": terrain, "x": x, "y": y, "pieceType": pieceType, "power": power, "player":player})
 }
 
@@ -51,7 +51,7 @@ $( document ).ready(function() {
     let tab = document.getElementById("Plateau");
     for(let x = 0; x < 10; x++) {
       for(let y = 0; y < 10; y++) {
-        tab.rows[x].cells[y].addEventListener('click',() => {click_event(x, y);} );
+        tab.rows[y].cells[x].addEventListener('click',() => {click_event(x, y);} );
       }
     }
 });
@@ -68,15 +68,23 @@ function PlayTest(x, y){
   if(!terrain.matrix[x][y].hasPiece){
     addPiece(x,y, 0, 4, 1);
   }
-  for (let i = 0; i < terrain.matrix.length; i++) {
-    for (let j = 0; j < terrain.matrix[i].length; j++) {
-      tab.rows[i].cells[j].removeChild(tab.rows[i].cells[j].firstChild);
-      if (terrain.matrix[i][j].hasPiece){
-        let pieceImg = document.createElement('img');
-        tab.rows[i].cells[j].appendChild(pieceImg);
-        pieceImg.class="SpongeBobTester";
-        pieceImg.src="./img/SpongeBobTester.png";
+  console.log("click at X: ", x, " Y: ", y);
+  setTimeout(function () {
+    for (let i = 0; i < terrain.matrix.length; i++) {
+      for (let j = 0; j < terrain.matrix[i].length; j++) {
+        //console.log(tab.rows[i].cells[j]);
+        if(tab.rows[j].cells[i].firstChild){
+          tab.rows[j].cells[i].removeChild(tab.rows[j].cells[i].firstChild);
+        }
+
+        if (terrain.matrix[i][j].hasPiece){
+          //console.log("got Piece");
+          let pieceImg = document.createElement('img');
+          tab.rows[j].cells[i].appendChild(pieceImg);
+          pieceImg.class="SpongeBobTester";
+          pieceImg.src="./img/SpongeBobTester.png";
+        }
       }
     }
-  }
+  }, 50)
 }

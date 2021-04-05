@@ -20,7 +20,7 @@ const { body, validationResult } = require('express-validator');
 
 var currentroomId = 0;
 /**** Import project libs ****/
-const {Terrain, InterfaceView} = require("./front/Class.js")
+const {Terrain, InterfaceView} = require("./back/Class.js")
 
 
 /**** Project configuration ****/

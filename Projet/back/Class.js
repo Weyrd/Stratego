@@ -43,8 +43,13 @@ class Case{
     this.Piece;
   }
   addPiece(pieceType, power, player){
+    if(!this.hasPiece && !this.water){
       this.Piece = new Piece(pieceType, power, player);
       this.hasPiece = true;
+    }
+    else {
+      console.log("shit");
+    }
   }
   transformToWater(){
     this.water = true;
@@ -82,17 +87,14 @@ class Terrain{
   }
   generateRamdomLake(){} //TODO MAYBE
 
-  addPiece2(x,y,z){
 
-  }
-
-  RandomPiecePlacing(){
+  RandomPiecePlacing(){/*
     if (this.matrix.length == 10 && this.matrix[0].length == 10){
       let POrder = [10, 9, 8,8, 7,7,7, 6,6,6,6, 5,5,5,5, 4,4,4,4, 3,3,3,3,3, 2,2,2,2,2,2,2,2, 1, 0, -1,-1,-1,-1,-1,-1];
       POrder.sort((a,b) => 0.5 - Math.random()); //shuffle
       for (var i = 0; i < 40; i++) {
-        let X = i%4;
-        let Y = i%10;
+        let X = Math.floor(i/4);
+        let Y = i%4;
         switch (POrder[i]) {
           case 10:
             this.matrix[X][Y].addPiece(4, 10, 1);
@@ -136,8 +138,8 @@ class Terrain{
       }
       POrder.sort((a,b) => 0.5 - Math.random());
       for (var j = 0; j < 40; j++) {
-        let X = j%4 + 6;
-        let Y = j%10;
+        let X = Math.floor(j/4);
+        let Y = j%4 + 6;
         switch (POrder[j]) {
           case 10:
             this.matrix[X][Y].addPiece(4, 10, 2);
@@ -180,6 +182,7 @@ class Terrain{
           }
       }
     }
+    */
   }
 
   MovePieceTo(terr, AX, AY, BX, BY){
