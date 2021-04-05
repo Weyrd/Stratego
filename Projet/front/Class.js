@@ -329,9 +329,26 @@ class InterfaceView{
   }
 
   click_event(x, y){
-  //TODO
+    this.PlayTest(x, y);
   }
 
+  PlayTest(x, y){
+    let tab = document.getElementById("Plateau");
+    if(!game.matrix[x][y].hasPiece){
+      game.matrix[x][y].addPiece(0, 4, 1);
+    }
+    for (let i = 0; i < matrix.length; i++) {
+      for (let j = 0; j < matrix[i].length; j++) {
+        tab.rows[i].cells[j].removeChild(tab.rows[i].cells[j].firstChild);
+        if (game.matrix[i][j].hasPiece){
+          let pieceImg = document.createElement('img');
+          tab.rows[i].cells[j].appendChild(pieceImg);
+          pieceImg.class="SpongeBobTester";
+          pieceImg.src="./img/SpongeBobTester.png";
+        }
+      }
+    }
+  }
 }
 
 module.exports = Terrain;
