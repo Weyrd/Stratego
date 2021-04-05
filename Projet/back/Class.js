@@ -359,4 +359,3 @@ class InterfaceView{
 }
 
 module.exports = {Terrain, InterfaceView} ;
-//module.exports = InterfaceView {};
