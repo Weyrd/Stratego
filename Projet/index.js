@@ -165,16 +165,17 @@ io.on('connection', (socket) => {
 
 
     socket.on('sendPieceMoveToServer', (data) => {
-      console.log('Coup reçu sur le serveur : ',  data["AX"], data["AY"], data["BX"], data["BY"]);
+      console.log('Coup reçu sur le serveur : ',  data["AX"], data["AY"], data["BX"], data["BY"], data["player"]);
       data["terrain"] =  socket.handshake.session.terr;
 
       io.to(socket.handshake.session.roomId).emit('sendPieceMoveToRoom', data);
       socket.handshake.session.save()
     });
 
+
     socket.on('sendPieceMovePlayer', (data) => {
-      console.log(socket.id, ' -> move piece : ',  data["AX"], data["AY"], data["BX"], data["BY"]);
-      err = socket.handshake.session.terr.MovePieceTo(socket.handshake.session.terr, data["AX"], data["AY"], data["BX"], data["BY"]);
+      console.log(socket.id, ' -> move piece : ',  data["AX"], data["AY"], data["BX"], data["BY"], data["player"]);
+      err = socket.handshake.session.terr.MovePieceTo(socket.handshake.session.terr, data["AX"], data["AY"], data["BX"], data["BY"], data["player"]);
 
       //io.in(socket.handshake.session.roomId).emit('check', err);
       socket.handshake.session.save()
@@ -184,6 +185,25 @@ io.on('connection', (socket) => {
       socket.emit("getTerr", socket.handshake.session.terr);
     });
 
+
+    /////
+    socket.on('SwapPieceToServer', (data) => {
+      console.log('Swap reçu sur le serveur : ',  data["AX"], data["AY"], data["BX"], data["BY"], data["player"]);
+      data["terrain"] =  socket.handshake.session.terr;
+
+      io.to(socket.handshake.session.roomId).emit('swapPieceMoveToRoom', data);
+      socket.handshake.session.save()
+    });
+
+
+    socket.on('swapPieceMovePlayer', (data) => {
+      console.log(socket.id, ' -> swap piece : ',  data["AX"], data["AY"], data["BX"], data["BY"], data["player"]);
+      err = socket.handshake.session.terr.SwapPiece(socket.handshake.session.terr, data["AX"], data["AY"], data["BX"], data["BY"], data["player"]);
+
+      //io.in(socket.handshake.session.roomId).emit('check', err);
+      socket.handshake.session.save()
+      socket.emit("getTerr", socket.handshake.session.terr);
+    });
 
 
   socket.on('disconnect', () => {

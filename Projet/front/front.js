@@ -18,6 +18,13 @@ socket.on('addPieceToRoom', (data) => {
   socket.emit("addPiecePlayer", data);
 });
 
+
+socket.on('swapPieceMoveToRoom', (data) => {
+  console.log('Swap piece recu : ', data["terrain"], data["AX"], data["AY"], data["BX"], data["BY"]);
+  socket.emit("swapPieceMovePlayer", data);
+});
+
+
 socket.on("numberPlayer", (data) => {
   console.log("Tu es le joueur : ", data);
   player = data;
@@ -71,15 +78,16 @@ function getTerr() {
 }
 
 
-function swapePiece() {
+function swapePiece(AX, AY, BX, BY) {
   if(gamePhase==0){
+    socket.emit("SwapPieceToServer", {"AX" : AX, "AY": AY, "BX": BX, "BY": BY, "player": player});
   }
 }
 
 
 function movePiece(AX, AY, BX, BY) {
   if(gamePhase==1 && player == playerTurn){
-    socket.emit("sendPieceMoveToServer", {"AX" : AX, "AY": AY, "BX": BX, "BY": BY});
+    socket.emit("sendPieceMoveToServer", {"AX" : AX, "AY": AY, "BX": BX, "BY": BY, "player": player});
   }
 }
 
