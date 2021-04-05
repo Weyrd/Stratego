@@ -21,6 +21,7 @@ socket.on("start", () => {
 
 socket.on("getTerr", (terr) => {
   terrain = terr;
+  RefreshTer()
   console.log(terrain);
 });
 
@@ -70,21 +71,25 @@ function PlayTest(x, y){
   }
   console.log("click at X: ", x, " Y: ", y);
   setTimeout(function () {
-    for (let i = 0; i < terrain.matrix.length; i++) {
-      for (let j = 0; j < terrain.matrix[i].length; j++) {
-        //console.log(tab.rows[i].cells[j]);
-        if(tab.rows[j].cells[i].firstChild){
-          tab.rows[j].cells[i].removeChild(tab.rows[j].cells[i].firstChild);
-        }
+    RefreshTer();
+  }, 50)
+}
 
-        if (terrain.matrix[i][j].hasPiece){
-          //console.log("got Piece");
-          let pieceImg = document.createElement('img');
-          tab.rows[j].cells[i].appendChild(pieceImg);
-          pieceImg.class="SpongeBobTester";
-          pieceImg.src="./img/SpongeBobTester.png";
-        }
+function RefreshTer() {
+  for (let i = 0; i < terrain.matrix.length; i++) {
+    for (let j = 0; j < terrain.matrix[i].length; j++) {
+      //console.log(tab.rows[i].cells[j]);
+      if(tab.rows[j].cells[i].firstChild){
+        tab.rows[j].cells[i].removeChild(tab.rows[j].cells[i].firstChild);
+      }
+
+      if (terrain.matrix[i][j].hasPiece){
+        //console.log("got Piece");
+        let pieceImg = document.createElement('img');
+        tab.rows[j].cells[i].appendChild(pieceImg);
+        pieceImg.class="SpongeBobTester";
+        pieceImg.src="./img/SpongeBobTester.png";
       }
     }
-  }, 50)
+  }
 }
