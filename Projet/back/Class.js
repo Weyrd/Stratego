@@ -88,7 +88,7 @@ class Terrain{
   generateRamdomLake(){} //TODO MAYBE
 
 
-  RandomPiecePlacing(){/*
+  RandomPiecePlacing(){
     if (this.matrix.length == 10 && this.matrix[0].length == 10){
       let POrder = [10, 9, 8,8, 7,7,7, 6,6,6,6, 5,5,5,5, 4,4,4,4, 3,3,3,3,3, 2,2,2,2,2,2,2,2, 1, 0, -1,-1,-1,-1,-1,-1];
       POrder.sort((a,b) => 0.5 - Math.random()); //shuffle
@@ -182,13 +182,15 @@ class Terrain{
           }
       }
     }
-    */
   }
 
-  MovePieceTo(terr, AX, AY, BX, BY){
+  MovePieceTo(terr, AX, AY, BX, BY, Player){
     if (terr.matrix[AX][AY].hasPiece) {
       //Type of Pieces movement restriction check___________________________________________________________
       //Bomb & Flag
+      if(terr.matrix[AX][AY].Piece.player != Player){
+        return("error not your piece");
+      }
       if(terr.matrix[AX][AY].Piece.pieceType == 5 || terr.matrix[AX][AY].Piece.pieceType == 6){
         //console.log("error not mouvable piece");
         return("error not mouvable piece");
@@ -196,7 +198,7 @@ class Terrain{
       //scout or not scout
       if(terr.matrix[AX][AY].Piece.pieceType == 1){
         if (AX == BX) {
-          dist = AY-BY
+          dist = AY-BY;
           if (dist <= 3 && dist >= -3 && dist) {
             if (dist <= 3) {
               for (var i = 1; i < dist; i++) {
@@ -221,7 +223,7 @@ class Terrain{
           }
         }
         else if (AY == BY) {
-          dist = AX-BX
+          dist = AX-BX;
           if (dist <= 3 && dist >= -3 && dist) {
             if (dist <= 3) {
               for (var i = 1; i < dist; i++) {
@@ -314,48 +316,24 @@ class Terrain{
       //console.log("error no piece on start");
       return("error no piece on start");
     }
-    return("Done.")
+    return(0);
   }
+
+  SwapPiece(terr, AX, AY, BX, BY, Player){
+    if(terr.matrix[AX][AY].Piece.player == Player && terr.matrix[BX][BY].Piece.player == Player){
+      let tmp = new Piece(0,0,0);
+      tmp = terr.matrix[AX][AY].Piece;
+      terr.matrix[AX][AY].Piece = terr.matrix[BX][BY].Piece;
+      terr.matrix[BX][BY].Piece = tmp;
+      return(0);
+    }
+    else {
+      return("error not your piece");
+    }
+  }
+
 
 
 }
 
-class InterfaceView{
-  constructor(game){
-		this.game = game;
-    this.listeners();
-  }
-
-  listeners(){
-    let tab = document.getElementById("Plateau");
-    for(let x = 0; x < 10; x++) {
-      for(let y = 0; y < 10; y++) {
-        tab.rows[x].cells[y].addEventListener('click',() => {this.click_event(x, y);} );
-      }
-    }
-  }
-
-  click_event(x, y){
-    this.PlayTest(x, y);
-  }
-
-  PlayTest(x, y){
-    let tab = document.getElementById("Plateau");
-    if(!game.matrix[x][y].hasPiece){
-      game.matrix[x][y].addPiece(0, 4, 1);
-    }
-    for (let i = 0; i < matrix.length; i++) {
-      for (let j = 0; j < matrix[i].length; j++) {
-        tab.rows[i].cells[j].removeChild(tab.rows[i].cells[j].firstChild);
-        if (game.matrix[i][j].hasPiece){
-          let pieceImg = document.createElement('img');
-          tab.rows[i].cells[j].appendChild(pieceImg);
-          pieceImg.class="SpongeBobTester";
-          pieceImg.src="./img/SpongeBobTester.png";
-        }
-      }
-    }
-  }
-}
-
-module.exports = {Terrain, InterfaceView} ;
+module.exports = {Terrain};
