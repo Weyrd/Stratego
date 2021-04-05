@@ -160,7 +160,7 @@ function PlayTest(x, y){
           //console.log("got Piece");
           let pieceImg = document.createElement('img');
           tab.rows[j].cells[i].appendChild(pieceImg);
-          pieceImg.class="SpongeBobTester";
+          pieceImg.id="SpongeBobTester";
           pieceImg.src="./img/SpongeBobTester.png";
         }
       }
@@ -181,137 +181,140 @@ function RefreshTer() {
         //console.log("got Piece");
         let pieceImg = document.createElement('img');
         tab.rows[j].cells[i].appendChild(pieceImg);
-        switch (terrain.matrix[i][j].player) {
+        switch (terrain.matrix[i][j].Piece.player) {
           case 2:
-            switch (terrain.matrix[i][j].pieceType) {
+            switch (terrain.matrix[i][j].Piece.pieceType) {
               case 6:
-                pieceImg.class="Piece";
+                pieceImg.id="Piece";
                 pieceImg.src="./img/flag2.png";
                 break;
               case 5:
-                pieceImg.class="Piece";
+                pieceImg.id="Piece";
                 pieceImg.src="./img/bombe2.png";
                 break;
               case 4:
-                pieceImg.class="Piece";
+                pieceImg.id="Piece";
                 pieceImg.src="./img/marshall2.png";
                 break;
               case 3:
-                pieceImg.class="Piece";
+                pieceImg.id="Piece";
                 pieceImg.src="./img/démineur2.png";
                 break;
               case 2:
-                pieceImg.class="Piece";
+                pieceImg.id="Piece";
                 pieceImg.src="./img/éclaireur2.png";
                 break;
               case 1:
-                pieceImg.class="Piece";
+                pieceImg.id="Piece";
                 pieceImg.src="./img/espion2.png";
                 break;
               case 0:
-                switch (terrain.matrix[i][j].power) {
+                switch (terrain.matrix[i][j].Piece.power) {
                   case 4:
-                    pieceImg.class="Piece";
+                    pieceImg.id="Piece";
                     pieceImg.src="./img/sergeant2.png";
                     break;
                   case 5:
-                    pieceImg.class="Piece";
+                    pieceImg.id="Piece";
                     pieceImg.src="./img/lieutenant2.png";
                     break;
                   case 6:
-                    pieceImg.class="Piece";
+                    pieceImg.id="Piece";
                     pieceImg.src="./img/capitaine2.png";
                     break;
                   case 7:
-                    pieceImg.class="Piece";
+                    pieceImg.id="Piece";
                     pieceImg.src="./img/commendant2.png";
                     break;
                   case 8:
-                    pieceImg.class="Piece";
+                    pieceImg.id="Piece";
                     pieceImg.src="./img/colonel2.png";
                     break;
                   case 9:
-                    pieceImg.class="Piece";
+                    pieceImg.id="Piece";
                     pieceImg.src="./img/general2.png";
                     break;
                   default:
-                    pieceImg.class="SpongeBobTester";
+                    pieceImg.id="SpongeBobTester";
                     pieceImg.src="./img/SpongeBobTester.png";
                     break;
                 }
                 break;
               default:
-                pieceImg.class="SpongeBobTester";
+                console.log("Display what type ?")
+                pieceImg.id="SpongeBobTester";
                 pieceImg.src="./img/SpongeBobTester.png";
                 break;
             }
             break;
           case 1:
-            switch (terrain.matrix[i][j].pieceType) {
+            switch (terrain.matrix[i][j].Piece.pieceType) {
               case 6:
-                pieceImg.class="Piece";
+                pieceImg.id="Piece";
                 pieceImg.src="./img/flag1.png";
                 break;
               case 5:
-                pieceImg.class="Piece";
+                pieceImg.id="Piece";
                 pieceImg.src="./img/bombe1.png";
                 break;
               case 4:
-                pieceImg.class="Piece";
+                pieceImg.id="Piece";
                 pieceImg.src="./img/marshall1.png";
                 break;
               case 3:
-                pieceImg.class="Piece";
+                pieceImg.id="Piece";
                 pieceImg.src="./img/démineur1.png";
                 break;
               case 2:
-                pieceImg.class="Piece";
+                pieceImg.id="Piece";
                 pieceImg.src="./img/éclaireur1.png";
                 break;
               case 1:
-                pieceImg.class="Piece";
+                pieceImg.id="Piece";
                 pieceImg.src="./img/espion1.png";
                 break;
               case 0:
-                switch (terrain.matrix[i][j].power) {
+                switch (terrain.matrix[i][j].Piece.power) {
                   case 4:
-                    pieceImg.class="Piece";
+                    pieceImg.id="Piece";
                     pieceImg.src="./img/sergeant1.png";
                     break;
                   case 5:
-                    pieceImg.class="Piece";
+                    pieceImg.id="Piece";
                     pieceImg.src="./img/lieutenant1.png";
                     break;
                   case 6:
-                    pieceImg.class="Piece";
+                    pieceImg.id="Piece";
                     pieceImg.src="./img/capitaine1.png";
                     break;
                   case 7:
-                    pieceImg.class="Piece";
+                    pieceImg.id="Piece";
                     pieceImg.src="./img/commendant1.png";
                     break;
                   case 8:
-                    pieceImg.class="Piece";
+                    pieceImg.id="Piece";
                     pieceImg.src="./img/colonel1.png";
                     break;
                   case 9:
-                    pieceImg.class="Piece";
+                    pieceImg.id="Piece";
                     pieceImg.src="./img/general1.png";
                     break;
                   default:
-                    pieceImg.class="SpongeBobTester";
+                    pieceImg.id="SpongeBobTester";
                     pieceImg.src="./img/SpongeBobTester.png";
                     break;
                 }
                 break;
               default:
-                pieceImg.class="SpongeBobTester";
+                pieceImg.id="SpongeBobTester";
                 pieceImg.src="./img/SpongeBobTester.png";
                 break;
             }
             break;
           default:
-            pieceImg.class="SpongeBobTester";
+            console.log("Display what player ?");
+            console.log(terrain.matrix[i][j].Piece.player);
+            pieceImg.id="SpongeBobTester";
             pieceImg.src="./img/SpongeBobTester.png";
             break;
         }

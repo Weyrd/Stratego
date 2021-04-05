@@ -42,13 +42,14 @@ tbody {
 	border: 0;
 }
 
-.SpongeBobTester{
+#SpongeBobTester{
 	display: block;
 	vertical-align: bottom;
 }
 
-.Piece{
+#Piece{
 	display: block;
+	margin: auto;
 	vertical-align: bottom;
 	height: 100px;
 	width: 67px;
