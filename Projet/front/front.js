@@ -153,7 +153,23 @@ function PlayTest(x, y){
   }
   console.log("click at X: ", x, " Y: ", y);
   setTimeout(function () {
-    RefreshTer();
+    let tab = document.getElementById("Plateau");
+    for (let i = 0; i < terrain.matrix.length; i++) {
+      for (let j = 0; j < terrain.matrix[i].length; j++) {
+        //console.log(tab.rows[i].cells[j]);
+        if(tab.rows[j].cells[i].firstChild){
+          tab.rows[j].cells[i].removeChild(tab.rows[j].cells[i].firstChild);
+        }
+
+        if (terrain.matrix[i][j].hasPiece){
+          //console.log("got Piece");
+          let pieceImg = document.createElement('img');
+          tab.rows[j].cells[i].appendChild(pieceImg);
+          pieceImg.class="SpongeBobTester";
+          pieceImg.src="./img/SpongeBobTester.png";
+        }
+      }
+    }
   }, 25)
 }
 
@@ -170,8 +186,40 @@ function RefreshTer() {
         //console.log("got Piece");
         let pieceImg = document.createElement('img');
         tab.rows[j].cells[i].appendChild(pieceImg);
-        pieceImg.class="SpongeBobTester";
-        pieceImg.src="./img/SpongeBobTester.png";
+        switch (terrain.matrix[i][j].pieceType) {
+          case 6:
+            pieceImg.class="SpongeBobTester";
+            pieceImg.src="./img/SpongeBobTester.png";
+            break;
+          case 5:
+            pieceImg.class="SpongeBobTester";
+            pieceImg.src="./img/SpongeBobTester.png";
+            break;
+          case 4:
+            pieceImg.class="SpongeBobTester";
+            pieceImg.src="./img/SpongeBobTester.png";
+            break;
+          case 3:
+            pieceImg.class="SpongeBobTester";
+            pieceImg.src="./img/SpongeBobTester.png";
+              break;
+          case 2:
+            pieceImg.class="SpongeBobTester";
+            pieceImg.src="./img/SpongeBobTester.png";
+            break;
+          case 1:
+            pieceImg.class="SpongeBobTester";
+            pieceImg.src="./img/SpongeBobTester.png";
+            break;
+          case 0:
+            pieceImg.class="SpongeBobTester";
+            pieceImg.src="./img/SpongeBobTester.png";
+            break;
+          default:
+            pieceImg.class="SpongeBobTester";
+            pieceImg.src="./img/SpongeBobTester.png";
+            break;
+        }
       }
     }
   }
