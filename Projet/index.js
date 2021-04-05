@@ -20,7 +20,7 @@ const { body, validationResult } = require('express-validator');
 
 var currentroomId = 0;
 /**** Import project libs ****/
-Terrain = require("./front/Class.js")
+const {Terrain, InterfaceView} = require("./front/Class.js")
 
 
 /**** Project configuration ****/
@@ -122,10 +122,10 @@ io.on('connection', (socket) => {
       socket.handshake.session.terr = new Terrain(10, 10);
       socket.handshake.session.terr.generateVanillaLake();
       socket.handshake.session.terr.RandomPiecePlacing();
-      socket.handshake.session.InterView = new InterfaceView(socket.handshake.session.terr);
+      //socket.handshake.session.InterView = new InterfaceView(socket.handshake.session.terr);
       socket.handshake.session.save()
       socket.emit("getTerr", socket.handshake.session.terr);
-      socket.emit("getInterView", socket.handshake.session.InterView);
+      //socket.emit("getInterView", socket.handshake.session.InterView);
     });
 
     socket.on("postTerr", (terr) => {
