@@ -118,7 +118,7 @@ function click_event(x, y){
   if(gamePhase){
     if(gamePhase == player) {
       if(lastCX != -1 && lastCY != -1){
-        //move piece code
+        movePiece(lastCX, lastCY, x, y);
         lastCX = -1;
         lastCY = -1;
         return()
@@ -132,7 +132,7 @@ function click_event(x, y){
   }
   else {
     if(lastCX != -1 && lastCY != -1){
-      //swap piece code
+      SwapPiece(lastCX, lastCY, x, y);
       lastCX = -1;
       lastCY = -1;
       return()
@@ -143,8 +143,7 @@ function click_event(x, y){
       return();
     }
   }
-
-  PlayTest(x, y);
+  //PlayTest(x, y);
 }
 
 
