@@ -71,7 +71,7 @@ function PlayTest(x, y){
   console.log("click at X: ", x, " Y: ", y);
   setTimeout(function () {
     RefreshTer();
-  }, 50)
+  }, 25)
 }
 
 function RefreshTer() {
