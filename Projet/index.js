@@ -137,6 +137,12 @@ io.on('connection', (socket) => {
       socket.emit("getTerr",   socket.handshake.session.terr);
     });
 
+    socket.on("confirmPlacement", (player) => {
+      //console.log(player);
+      io.in(socket.handshake.session.roomId).emit('confirmPlacementCheck', player);
+    });
+
+
 
     socket.on('addPieceToServer', (data) => {
       console.log('Addpiece sur le serveur : ',  data["x"], data["y"], data["pieceType"], data["power"], data["player"]);
@@ -172,6 +178,9 @@ io.on('connection', (socket) => {
 
       //io.in(socket.handshake.session.roomId).emit('check', err);
       socket.handshake.session.save()
+      if(err = 0){
+          io.to(socket.handshake.session.roomId).emit('nextPlayer');
+      }
       socket.emit("getTerr", socket.handshake.session.terr);
     });
 

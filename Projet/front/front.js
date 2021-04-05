@@ -1,4 +1,10 @@
-var terrain, player;
+var terrain,
+    player,
+    gamePhase = 0,
+    playersState = [0, 0]
+    playerTurn = 1;
+
+
 socket.on('sendPieceMoveToRoom', (data) => {
   console.log('Move piece recu : ', data["terrain"], data["AX"], data["AY"], data["BX"], data["BY"]);
   socket.emit("sendPieceMovePlayer", data);
@@ -14,8 +20,27 @@ socket.on("numberPlayer", (data) => {
   player = data;
 });
 
+socket.on("confirmPlacementCheck", (data) => {
+  console.log("playersState : ", data);
+  playersState = data;
+  if(playersState[0] == 1 && playersState[1] == 1){
+    console.log("Les deux joueurs sont ok c'est parti");
+    gamePhase = 1;
+  }
+});
+
+
 socket.on("otherPlayerDisco", () => {
   alert("L'autre joueur à une co de merde désolé");
+});
+
+socket.on("nextPlayer", () => {
+  if(playerTurn == 1){
+    playerTurn = 2;
+  }
+  else{
+  playerTurn = 1
+  }
 });
 
 socket.on("loading", () => {
@@ -38,20 +63,27 @@ socket.on("check", (msg) => {
 });
 
 
-
 function getTerr() {
   socket.emit("getTerr");
 }
 
 
-function movePiece(AX, AY, BX, BY) {
-  socket.emit("sendPieceMoveToServer", {"AX" : AX, "AY": AY, "BX": BX, "BY": BY});
+function swapePiece() {
+  if(gamePhase==0){
+  }
+}
 
+
+function movePiece(AX, AY, BX, BY) {
+  if(gamePhase==1 && player == playerTurn){
+    socket.emit("sendPieceMoveToServer", {"AX" : AX, "AY": AY, "BX": BX, "BY": BY});
+  }
 }
 
 function addPiece(x,y, pieceType, power, player) {
-  //console.log("test");
-  socket.emit("addPieceToServer", {"terrain": terrain, "x": x, "y": y, "pieceType": pieceType, "power": power, "player":player})
+  if(gamePhase==-1){
+    socket.emit("addPieceToServer", {"terrain": terrain, "x": x, "y": y, "pieceType": pieceType, "power": power, "player":player})
+  }
 }
 
 $( document ).ready(function() {
@@ -63,6 +95,12 @@ $( document ).ready(function() {
         tab.rows[y].cells[x].addEventListener('click',() => {click_event(x, y);} );
       }
     }
+
+    $(".buttonConfirm").click(function() {
+      playersState[player-1] = 1;
+      socket.emit("confirmPlacement", playersState)
+      $(".buttonConfirm").hide();
+    })
 });
 
 
