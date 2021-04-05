@@ -2,7 +2,10 @@ var terrain,
     player,
     gamePhase = 0,
     playersState = [0, 0]
-    playerTurn = 1;
+    playerTurn = 1,
+    lastCX = -1,
+    lastCY= -1;
+
 
 
 socket.on('sendPieceMoveToRoom', (data) => {
@@ -103,9 +106,36 @@ $( document ).ready(function() {
     })
 });
 
-
-
 function click_event(x, y){
+  if(gamePhase){
+    if(gamePhase == player) {
+      if(lastCX != -1 && lastCY != -1){
+        //move piece code
+        lastCX = -1;
+        lastCY = -1;
+        return()
+      }
+      else {
+        lastCX = x;
+        lastCY = y;
+        return();
+      }
+    }
+  }
+  else {
+    if(lastCX != -1 && lastCY != -1){
+      //swap piece code
+      lastCX = -1;
+      lastCY = -1;
+      return()
+    }
+    else {
+      lastCX = x;
+      lastCY = y;
+      return();
+    }
+  }
+
   PlayTest(x, y);
 }
 
