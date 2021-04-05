@@ -77,7 +77,7 @@ function getTerr() {
 }
 
 
-function swapePiece(AX, AY, BX, BY) {
+function swapPiece(AX, AY, BX, BY) {
     socket.emit("SwapPieceToServer", {"AX" : AX, "AY": AY, "BX": BX, "BY": BY, "player": player});
 }
 
