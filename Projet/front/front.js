@@ -127,7 +127,7 @@ function click_event(x, y){
   }
   else {
     if(lastCX != -1 && lastCY != -1){
-      SwapPiece(lastCX, lastCY, x, y);
+      swapPiece(lastCX, lastCY, x, y);
       lastCX = -1;
       lastCY = -1;
       return(0);
