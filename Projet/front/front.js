@@ -89,24 +89,22 @@ socket.on("nextPlayer", () => {
 
 socket.on("loading", () => {
   console.log("En attente d'un autre joueur");
-  $('#info').text("Au tour du joueur N°" + gamePhase);
-  if(gamePhase == 1){
+  $('#info').text("Tu es le joueur N°" + player + "</br>En attente d'un autre joueur");
+  if(player == 1){
      $("#info").css("color", "blue");
     }
     else{
       $("#info").css("color", "red");
     }
-  $('#info').append("</br>En attente d'un autre joueur");
 });
 
 
 socket.on("start", () => {
   console.log("Début de la partie");
-    $('#info').text("Tu es le joueur : " + player)
+    $('#info').text("Tu es le joueur : " + player + "</br>Les deux joueurs sont présent")
     if(player ==1){
        $("#info").css("color", "blue");
       }
-      $('#info').append("</br>Début de la partie");
 
 });
 
