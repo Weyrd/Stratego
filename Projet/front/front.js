@@ -75,6 +75,11 @@ socket.on("getOtherPlayerTerr", (playerGet) => {
   }
 });
 
+socket.on("getTransitTerr", (terrainGet) => {
+    socket.emit("postTerr", terrainGet)
+});
+
+
 function getTerr() {
   socket.emit("getTerr");
 }

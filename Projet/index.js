@@ -141,7 +141,7 @@ io.on('connection', (socket) => {
 
     socket.on("transitTerr", (terr) => {
       console.log("matrice qui transite omg");
-      io.to(socket.handshake.session.roomId).emit("getTerr", socket.handshake.session.terr);
+      io.to(socket.handshake.session.roomId).emit("getTransitTerr", socket.handshake.session.terr);
     });
 
     socket.on("getTerr", (terr) => {
