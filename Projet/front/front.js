@@ -24,6 +24,7 @@ socket.on('swapPieceMoveToRoom', (data) => {
 /* Set player number */
 socket.on("numberPlayer", (data) => {
   console.log("Tu es le joueur : ", data);
+  $('#info').text("Tu es le joueur : " + data)
   player = data;
 });
 
@@ -81,6 +82,7 @@ socket.on("getTerr", (terr) => {
 
 socket.on("check", (msg) => {
   console.log(msg);
+  $('#info').text(msg)
 });
 
 /* gathering matrix */
