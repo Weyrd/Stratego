@@ -190,7 +190,7 @@ io.on('connection', (socket) => {
       err = socket.handshake.session.terr.MovePieceTo(socket.handshake.session.terr, data["AX"], data["AY"], data["BX"], data["BY"], data["player"]);
 
       socket.handshake.session.save()
-      if(err == 0 || err == 1 || err = 2){
+      if(err == 0 || err == 1 || err == 2){
           socket.emit('nextPlayer');
       }
       else if(err==3){
