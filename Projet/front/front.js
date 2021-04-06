@@ -89,6 +89,13 @@ socket.on("nextPlayer", () => {
 
 socket.on("loading", () => {
   console.log("En attente d'un autre joueur");
+  $('#info').text("Au tour du joueur N°" + gamePhase);
+  if(gamePhase == 1){
+     $("#info").css("color", "blue");
+    }
+    else{
+      $("#info").css("color", "red");
+    }
   $('#info').append("</br>En attente d'un autre joueur");
 });
 
