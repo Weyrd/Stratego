@@ -232,13 +232,16 @@ function PlayTest(x, y){
 
 function RefreshTer() {
   let tab = document.getElementById("Plateau");
+
+  let teamB = [0,0,0, 0,0,0, 0,0,0, 0,0,0];
+  let teamR = [0,0,0, 0,0,0, 0,0,0, 0,0,0];
+
   for (let i = 0; i < terrain.matrix.length; i++) {
     for (let j = 0; j < terrain.matrix[i].length; j++) {
       //console.log(tab.rows[i].cells[j]);
       if(tab.rows[j].cells[i].firstChild){
         tab.rows[j].cells[i].removeChild(tab.rows[j].cells[i].firstChild);
       }
-
       if (terrain.matrix[i][j].hasPiece){
         //console.log("got Piece");
         let pieceImg = document.createElement('img');
@@ -396,7 +399,173 @@ function RefreshTer() {
               break;
           }
         }
+
+        if (terrain.matrix[i][j].Piece.player == 1) {
+          if (terrain.matrix[i][j].Piece.pieceType != 0) {
+            teamB[terrain.matrix[i][j].Piece.pieceType -1] += 1;
+          }
+          else {
+            teamB[terrain.matrix[i][j].Piece.power +2] += 1; //don't worry that make sense
+          }
+        }
+        else {
+          if (terrain.matrix[i][j].Piece.pieceType != 0) {
+            teamR[terrain.matrix[i][j].Piece.pieceType -1] += 1;
+          }
+          else {
+            teamR[terrain.matrix[i][j].Piece.power +2] += 1; //don't worry that make sense
+          }
+        }
+        //switch (terrain.matrix[i][j].Piece.player) {
+          case 2:
+            switch (terrain.matrix[i][j].Piece.pieceType) {
+              case 6:
+                teamR[0] += 1
+                break;
+              case 5:
+                pieceImg.id="Piece";
+                pieceImg.src="./img/bombe2.png";
+                break;
+              case 4:
+                pieceImg.id="Piece";
+                pieceImg.src="./img/marshall2.png";
+                break;
+              case 3:
+                pieceImg.id="Piece";
+                pieceImg.src="./img/démineur2.png";
+                break;
+              case 2:
+                pieceImg.id="Piece";
+                pieceImg.src="./img/éclaireur2.png";
+                break;
+              case 1:
+                pieceImg.id="Piece";
+                pieceImg.src="./img/espion2.png";
+                break;
+              case 0:
+                switch (terrain.matrix[i][j].Piece.power) {
+                  case 4:
+                    pieceImg.id="Piece";
+                    pieceImg.src="./img/sergeant2.png";
+                    break;
+                  case 5:
+                    pieceImg.id="Piece";
+                    pieceImg.src="./img/lieutenant2.png";
+                    break;
+                  case 6:
+                    pieceImg.id="Piece";
+                    pieceImg.src="./img/capitaine2.png";
+                    break;
+                  case 7:
+                    pieceImg.id="Piece";
+                    pieceImg.src="./img/commendant2.png";
+                    break;
+                  case 8:
+                    pieceImg.id="Piece";
+                    pieceImg.src="./img/colonel2.png";
+                    break;
+                  case 9:
+                    pieceImg.id="Piece";
+                    pieceImg.src="./img/general2.png";
+                    break;
+                  default:
+                    break;
+                }
+                break;
+              default:
+                break;
+            }
+            break;
+          case 1:
+            switch (terrain.matrix[i][j].Piece.pieceType) {
+              case 6:
+                pieceImg.id="Piece";
+                pieceImg.src="./img/flag1.png";
+                break;
+              case 5:
+                pieceImg.id="Piece";
+                pieceImg.src="./img/bombe1.png";
+                break;
+              case 4:
+                pieceImg.id="Piece";
+                pieceImg.src="./img/marshall1.png";
+                break;
+              case 3:
+                pieceImg.id="Piece";
+                pieceImg.src="./img/démineur1.png";
+                break;
+              case 2:
+                pieceImg.id="Piece";
+                pieceImg.src="./img/éclaireur1.png";
+                break;
+              case 1:
+                pieceImg.id="Piece";
+                pieceImg.src="./img/espion1.png";
+                break;
+              case 0:
+                switch (terrain.matrix[i][j].Piece.power) {
+                  case 4:
+                    pieceImg.id="Piece";
+                    pieceImg.src="./img/sergeant1.png";
+                    break;
+                  case 5:
+                    pieceImg.id="Piece";
+                    pieceImg.src="./img/lieutenant1.png";
+                    break;
+                  case 6:
+                    pieceImg.id="Piece";
+                    pieceImg.src="./img/capitaine1.png";
+                    break;
+                  case 7:
+                    pieceImg.id="Piece";
+                    pieceImg.src="./img/commendant1.png";
+                    break;
+                  case 8:
+                    pieceImg.id="Piece";
+                    pieceImg.src="./img/colonel1.png";
+                    break;
+                  case 9:
+                    pieceImg.id="Piece";
+                    pieceImg.src="./img/general1.png";
+                    break;
+                  default:
+                    break;
+                }
+                break;
+              default:
+                break;
+            }
+            break;
+          default:
+            break;
+        }
       }
     }
+    document.getElementById("BomB").innerHTML = teamB[4];
+    document.getElementById("EclB").innerHTML = teamB[1];
+    document.getElementById("SerB").innerHTML = teamB[6];
+    document.getElementById("CapB").innerHTML = teamB[8];
+    document.getElementById("ColB").innerHTML = teamB[10];
+    document.getElementById("MarB").innerHTML = teamB[3];
+    document.getElementById("FlaB").innerHTML = teamB[5];
+    document.getElementById("EspB").innerHTML = teamB[0];
+    document.getElementById("DemB").innerHTML = teamB[2];
+    document.getElementById("LieB").innerHTML = teamB[7];
+    document.getElementById("ComB").innerHTML = teamB[9];
+    document.getElementById("GenB").innerHTML = teamB[11];
+
+    document.getElementById("BomR").innerHTML = teamR[4];
+    document.getElementById("EclR").innerHTML = teamR[1];
+    document.getElementById("SerR").innerHTML = teamR[6];
+    document.getElementById("CapR").innerHTML = teamR[8];
+    document.getElementById("ColR").innerHTML = teamR[10];
+    document.getElementById("MarR").innerHTML = teamR[3];
+    document.getElementById("FlaR").innerHTML = teamR[5];
+    document.getElementById("EspR").innerHTML = teamR[0];
+    document.getElementById("DemR").innerHTML = teamR[2];
+    document.getElementById("LieR").innerHTML = teamR[7];
+    document.getElementById("ComR").innerHTML = teamR[9];
+    document.getElementById("GenR").innerHTML = teamR[11];
+
   }
 }
