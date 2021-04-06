@@ -157,7 +157,6 @@ io.on('connection', (socket) => {
       let sql = "INSERT INTO leaderboard (nickname, score) VALUES ('" + name + "', " + score + "')";
       var query = db.query(sql, function(err, result) {
         console.log("Succesfully! Your Score has been added.");
-        res.render('menu',{message: message});
       });
     });
 
