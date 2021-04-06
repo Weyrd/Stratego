@@ -1,0 +1,198 @@
+<!DOCTYPEhtml>
+<html lang="fr">
+<head>
+<title>Strategato</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<link rel="stylesheet" href="jeu.css">
+		<script src="/socket.io/socket.io.js"></script>
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+		<meta property="og:url" content="http://stratego.sverd.ovh">
+	  <meta property="og:title" content="Strategato">
+	  <meta property="og:site_name" content="Strategato">
+	  <meta property="og:description" content="Afin de strategifier la stratégie">
+	  <meta name="theme-color" content="#aaaaaa">
+	  <meta property="og:image" content="http://dualy.sverd.ovh/images/texture/perso1.png">
+</head>
+
+<body>
+	<script>let socket = io();</script>
+  <script  src="front.js"></script>
+
+</br>
+</br>
+
+<h1>Equipe Rouge :</h1>
+<h2>Equipe Bleu :</h2>
+</br>
+</br>
+</br>
+<div class="grille">
+	<div class="grid-item"><h5>1</h5><h3><img src="./img/colonel.png"></h3></div>
+	<div class="grid-item"><h5>5</h5><h3><img src="./img/commendant.png"></h3></div>
+	<div class="grid-item"><h5>9</h5><h3><img src="./img/démineur.png"></h3></div>
+<div class="grid-item"><h5>4</h5><h3><img src="./img/bombe.png"></h3></div>
+<div class="grid-item"><h5>1</h5><h3><img src="./img/capitaine.png"></h3></div>
+<div class="grid-item"><h5>2</h5><h3><img src="./img/éclaireur.png"></h3></div>
+<div class ="grille2">
+</br>
+<div class="grid-item2"><h5>3</h5><h3><img src="./img/flag.png"></h3></div>
+<div class="grid-item2"><h5>1</h5><h3><img src="./img/general.png"></h3></div>
+<div class="grid-item2"><h5>7</h5><h3><img src="./img/lieutenant.png"></h3></div>
+<div class="grid-item2"><h5>6</h5><h3><img src="./img/sergeant.png"></h3></div>
+<div class="grid-item2"><h5>8</h5><h3><img src="./img/marshall.png"></h3></div>
+<div class="grid-item2"><h5>1</h5><h3><img src="./img/espion.png"></h3></div>
+</div>
+</div>
+
+
+<div class="grille1">
+	<div class="grid-item1"><h4>1</h4><h3><img src="./img/colonel.png"></h3></div>
+	<div class="grid-item1"><h4>5</h4><h3><img src="./img/commendant.png"></h3></div>
+	<div class="grid-item1"><h4>5</h4><h3><img src="./img/démineur.png"></h3></div>
+<div class="grid-item1"><h4>3</h4><h3><img src="./img/bombe.png"></h3></div>
+<div class="grid-item1"><h4>9</h4><h3><img src="./img/capitaine.png"></h3></div>
+<div class="grid-item1"><h4>1</h4><h3><img src="./img/éclaireur.png"></h3></div>
+<div class ="grille3">
+</br>
+<div class="grid-item4"><h4>2</h4><h3><img src="./img/espion.png"></h3></div>
+<div class="grid-item4"><h4>2</h4><h3><img src="./img/flag.png"></h3></div>
+<div class="grid-item4"><h4>3</h4><h3><img src="./img/general.png"></h3></div>
+<div class="grid-item4"><h4>8</h4><h3><img src="./img/lieutenant.png"></h3></div>
+<div class="grid-item4"><h4>4</h4><h3><img src="./img/sergeant.png"></h3></div>
+<div class="grid-item4"><h4>6</h4><h3><img src="./img/marshall.png"></h3></div>
+</div>
+</div>
+
+	<table id="Plateau">
+		<img src="./img/plateau.png">
+        <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+		<button class="buttonConfirm" type="button" name="button">Confirmation des déplacements</button>
+</body>
+</html>
