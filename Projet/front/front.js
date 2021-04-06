@@ -145,8 +145,10 @@ function click_event(x, y){
         return(0);
       }
       else {
-        lastCX = x;
-        lastCY = y;
+        if (terrain.matrix[x][y].hasPiece) {
+          lastCX = x;
+          lastCY = y;          
+        }
         return(0);
       }
     }
@@ -159,15 +161,17 @@ function click_event(x, y){
       return(0);
     }
     else {
-      lastCX = x;
-      lastCY = y;
+      if (terrain.matrix[x][y].hasPiece) {
+        lastCX = x;
+        lastCY = y;
+      }
       return(0);
     }
   }
   //PlayTest(x, y);
 }
 
-
+//For test
 function PlayTest(x, y){
   if(!terrain.matrix[x][y].hasPiece){
     addPiece(x,y, 0, 4, 1);
