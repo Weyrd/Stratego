@@ -207,17 +207,23 @@ class Terrain{
           if (dist <= 3 && dist >= -3 && dist) {
             if (dist <= 3) {
               for (var i = 1; i < dist; i++) {
-                if (terr.matrix[AX][AY+i].hasPiece) {
-                  //console.log("Piece in the way");
-                  return("Piece in the way");
+                if (AY+i < 10) {
+                  console.log(terr.matrix[AX][AY+i]);
+                  if (terr.matrix[AX][AY+i].hasPiece) {
+                    //console.log("Piece in the way");
+                    return("Piece in the way");
+                  }
                 }
               }
             }
             if (dist >= -3) {
-              for (var i = -1; i < dist; i--) {
-                if (terr.matrix[AX][AY+i].hasPiece) {
-                  //console.log("Piece in the way");
-                  return("Piece in the way");
+              for (var i = -1; i > dist; i--) {
+                if (AY+i >= 0) {
+                  console.log(terr.matrix[AX][AY+i]);
+                  if (terr.matrix[AX][AY+i].hasPiece) {
+                    //console.log("Piece in the way");
+                    return("Piece in the way");
+                  }
                 }
               }
             }
@@ -232,17 +238,23 @@ class Terrain{
           if (dist <= 3 && dist >= -3 && dist) {
             if (dist <= 3) {
               for (var i = 1; i < dist; i++) {
-                if (terr.matrix[AX+i][AY].hasPiece) {
-                  //console.log("Piece in the way");
-                  return("Piece in the way");
+                if (AX+i < 10) {
+                  console.log(terr.matrix[AX+i][AY]);
+                  if (terr.matrix[AX+i][AY].hasPiece) {
+                    //console.log("Piece in the way");
+                    return("Piece in the way");
+                  }
                 }
               }
             }
             if (dist >= -3) {
-              for (var i = -1; i < dist; i--) {
-                if (terr.matrix[AX+i][AY].hasPiece) {
-                  //console.log("Piece in the way");
-                  return("Piece in the way");
+              for (var i = -1; i > dist; i--) {
+                if (AX+i >= 0) {
+                  console.log(terr.matrix[AX+i][AY]);
+                  if (terr.matrix[AX+i][AY].hasPiece) {
+                    //console.log("Piece in the way");
+                    return("Piece in the way");
+                  }
                 }
               }
             }
