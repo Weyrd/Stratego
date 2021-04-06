@@ -12,9 +12,12 @@ class Piece{
     // 6 = drapeau
     this.power = power;
     this.player = player;
-    this.shown = true;
+    this.shown = false;
   }
   static engageCombat(attack, def){ //attack = start piece, def = dest piece
+    attack.shown = true;
+    def.shown = true;
+    setTimeout(function () {
     if(def.pieceType == 6){
       return(3); // Win, flag is down !
     }
@@ -34,6 +37,7 @@ class Piece{
         }
       }
     }
+  }, 500)
   }
 }
 
