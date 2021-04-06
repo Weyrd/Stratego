@@ -17,7 +17,6 @@ class Piece{
   static engageCombat(attack, def){ //attack = start piece, def = dest piece
     attack.shown = true;
     def.shown = true;
-    setTimeout(function () {
     if(def.pieceType == 6){
       return(3); // Win, flag is down !
     }
@@ -37,7 +36,6 @@ class Piece{
         }
       }
     }
-  }, 500)
   }
 }
 
@@ -208,6 +206,7 @@ class Terrain{
             if (dist <= 3) {
               for (var i = 1; i < dist; i++) {
                 if (AY+i < 10) {
+                  console.log("From (X,Y): ", AX, ",", AY, " to (X,Y): ", AX, ",", AY+i);
                   console.log(terr.matrix[AX][AY+i]);
                   if (terr.matrix[AX][AY+i].hasPiece) {
                     //console.log("Piece in the way");
@@ -219,6 +218,7 @@ class Terrain{
             if (dist >= -3) {
               for (var i = -1; i > dist; i--) {
                 if (AY+i >= 0) {
+                  console.log("From (X,Y): ", AX, ",", AY, " to (X,Y): ", AX, ",", AY+i);
                   console.log(terr.matrix[AX][AY+i]);
                   if (terr.matrix[AX][AY+i].hasPiece) {
                     //console.log("Piece in the way");
@@ -240,6 +240,7 @@ class Terrain{
               for (var i = 1; i < dist; i++) {
                 if (AX+i < 10) {
                   console.log(terr.matrix[AX+i][AY]);
+                  console.log("From (X,Y): ", AX, ",", AY, " to (X,Y): ", AX+i, ",", AY);
                   if (terr.matrix[AX+i][AY].hasPiece) {
                     //console.log("Piece in the way");
                     return("Piece in the way");
@@ -250,6 +251,7 @@ class Terrain{
             if (dist >= -3) {
               for (var i = -1; i > dist; i--) {
                 if (AX+i >= 0) {
+                  console.log("From (X,Y): ", AX, ",", AY, " to (X,Y): ", AX+i, ",", AY);
                   console.log(terr.matrix[AX+i][AY]);
                   if (terr.matrix[AX+i][AY].hasPiece) {
                     //console.log("Piece in the way");
