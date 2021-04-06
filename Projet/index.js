@@ -200,6 +200,7 @@ io.on('connection', (socket) => {
           socket.emit('nextPlayer');
       }
       else if(err==3){ /* if win */
+          socket.emit("getTerr", socket.handshake.session.terr); 
           io.in(socket.handshake.session.roomId).emit('win')
       }
       else{
