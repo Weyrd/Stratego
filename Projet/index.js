@@ -24,8 +24,7 @@ const { body, validationResult } = require('express-validator');
 var currentroomId = 0;
 /**** Import project libs ****/
 const {Terrain} = require("./back/Class.js")
-const states = require('./back/modules/states');
-const Dark_Vador = require('./back/models/Dark_Vador');
+
 
 
 /**** Project configuration ****/
