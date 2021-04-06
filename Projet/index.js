@@ -129,7 +129,7 @@ io.on('connection', (socket) => {
 
     socket.on("getOtherPlayerTerr", (player) => {
       console.log("J2 try de get l'autre matrix");
-      io.to(socket.handshake.session.roomId).emit("getTerrPlayer", player);
+      io.to(socket.handshake.session.roomId).emit("getOtherPlayerTerr", player);
     });
 
 
