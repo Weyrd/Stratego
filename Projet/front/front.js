@@ -30,7 +30,6 @@ socket.on("numberPlayer", (data) => {
 
 socket.on("win", () => {
   alert("Win : ", player);
-
 });
 
 
@@ -47,6 +46,7 @@ socket.on("confirmPlacementCheck", (data) => {
 
 socket.on("otherPlayerDisco", () => {
   alert("L'autre joueur à une co de merde désolé");
+  window.location.replace("stratego.sverd.ovh:258");
 });
 
 socket.on("nextPlayer", () => {
