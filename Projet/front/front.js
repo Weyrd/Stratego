@@ -69,6 +69,11 @@ socket.on("check", (msg) => {
   console.log(msg);
 });
 
+socket.on("getOtherPlayerTerr", (playerGet) => {
+  if(playerGet!=player){
+    socket.emit("transitTerr", terrain)
+  }
+});
 
 function getTerr() {
   socket.emit("getTerr");
@@ -91,7 +96,15 @@ function addPiece(x,y, pieceType, power, player) {
 }
 
 $( document ).ready(function() {
-    socket.emit("createTerr");
+    setTimeout(function () {
+      if(player==1){
+        socket.emit("createTerr");
+      }
+      else{
+      socket.emit("getOtherPlayerTerr", player)
+      }
+    }, 500)//time
+
 
     let tab = document.getElementById("Plateau");
     for(let x = 0; x < 10; x++) {

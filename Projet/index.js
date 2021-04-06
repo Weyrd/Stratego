@@ -128,12 +128,19 @@ io.on('connection', (socket) => {
     });
 
     socket.on("getOtherPlayerTerr", (player) => {
+      console.log("J2 try de get l'autre matrix");
       io.to(socket.handshake.session.roomId).emit("getTerrPlayer", player);
     });
+
 
     socket.on("postTerr", (terr) => {
       socket.handshake.session.terr = terr;
       socket.handshake.session.save()
+      socket.emit("getTerr", socket.handshake.session.terr);
+    });
+
+    socket.on("transitTerr", (terr) => {
+      console.log("matrice qui transite omg");
       io.to(socket.handshake.session.roomId).emit("getTerr", socket.handshake.session.terr);
     });
 
