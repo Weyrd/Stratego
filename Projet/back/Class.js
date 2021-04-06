@@ -201,7 +201,7 @@ class Terrain{
       //scout or not scout
       if(terr.matrix[AX][AY].Piece.pieceType == 2){
         if (AX == BX) {
-          let dist = AY-BY;
+          let dist = BY-AY;
           if (dist <= 3 && dist >= -3 && dist) {
             if (dist <= 3) {
               for (var i = 1; i < dist; i++) {
@@ -234,7 +234,7 @@ class Terrain{
           }
         }
         else if (AY == BY) {
-          let dist = AX-BX;
+          let dist = BX-AX;
           if (dist <= 3 && dist >= -3 && dist) {
             if (dist <= 3) {
               for (var i = 1; i < dist; i++) {
