@@ -1,0 +1,87 @@
+<<html lang="fr">
+<head>
+<title>Stratego.com</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="css/boostrap.min.css">
+		<link rel="stylesheet" href="css/boostrap-theme.min.css">
+		<link rel="stylesheet" href="leaderboard.css">
+		<script>
+    // stringify the data passed from router to ejs (within the EJS template only)
+    var parsed_data = <%- JSON.stringify(resultArray) %>
+		console.log(parsed_data);
+		</script>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+	<div id="menu">
+		<ul>
+			<li class ="current-item is-activate"><a href="/">Accueil</a></li>
+			<li class ="current-item"><a href="loading.html">Jeu</a></li>
+		</ul>
+	</div>
+
+  </br>
+  </br>
+  </br>
+  </br>
+<div class="container">
+	<div class="line">
+		<div class="diamant"></div>
+	</div>
+</div>
+<form method="post" id="i_form" action="/leaderboard"> <!-- le return false ici et ligne 36 sont des tests pour éviter le refresh de la page, mais le serv crash donc j'ai pas pu faire les tests avec-->
+	<button type="submit">refresh</button>
+</form>
+<div class="grille">
+    <div class="grid-item"><h3>Pseudo :</h3></div>
+    <div class="grid-item"><h3>Score :</h3></div>
+    <div class="grid-item"><h3>Place :</h3></div>
+
+</div>
+<div class="grille1">
+    <div class="grid-item1"><h2 id="p0"></h2></div>
+		<div class="grid-item1"><h2 id="s0"></h2></div>
+    <div class="grid-item1"><h2>1st</h2></div>
+
+    <div class="grid-item1"><h2 id="p1"></h2></div>
+		<div class="grid-item1"><h2 id="s1"></h2></div>
+    <div class="grid-item1"><h2>2nd</h2></div>
+
+    <div class="grid-item1"><h2 id="p2"></h2></div>
+		<div class="grid-item1"><h2 id="s2"></h2></div>
+    <div class="grid-item1"><h2>3rd</h2></div>
+
+		<div class="grid-item1"><h2 id="p3"></h2></div>
+		<div class="grid-item1"><h2 id="s3"></h2></div>
+		<div class="grid-item1"><h2>4th</h2></div>
+
+		<div class="grid-item1"><h2 id="p4"></h2></div>
+		<div class="grid-item1"><h2 id="s4"></h2></div>
+    <div class="grid-item1"><h2>5th</h2></div>
+</div>
+<div class="container">
+	<div class="lines">
+		<button><a href="/" style="text-decoration: none; color:#FFF;"> Retourner au menu  </a></button>
+	</div>
+</div>
+
+
+</body>
+<script>
+	//pseudo
+	document.getElementById("p0").innerHTML = parsed_data[0].nickname;
+	document.getElementById("p1").innerHTML = parsed_data[1].nickname;
+	document.getElementById("p2").innerHTML = parsed_data[2].nickname;
+	document.getElementById("p3").innerHTML = parsed_data[3].nickname;
+	document.getElementById("p4").innerHTML = parsed_data[4].nickname;
+	//score
+	document.getElementById("s0").innerHTML = parsed_data[0].score;
+	document.getElementById("s1").innerHTML = parsed_data[1].score;
+	document.getElementById("s2").innerHTML = parsed_data[2].score;
+	document.getElementById("s3").innerHTML = parsed_data[3].score;
+	document.getElementById("s4").innerHTML = parsed_data[4].score;
+</script>
+</html>

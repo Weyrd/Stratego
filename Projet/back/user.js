@@ -1,25 +1,13 @@
-exports.signup = function(req, res){
+exports.leaderboard = function(req, res){
    message = '';
-   if(req.method == "POST"){
-      var post  = req.body;
-      var name= post.i_name;
-      var pass= post.i_password;
-      var pass2= post.i_password2;
-      var mail= post.i_email;
-
-      console.log(name);
-
-      var sql = "INSERT INTO user (nickname , email, password) VALUES ('" + name + "','" + mail + "','" + pass + "')";
-
-      var query = db.query(sql, function(err, result) {
-
-         message = "Succesfully! Your account has been created.";
-         res.render('signup.ejs',{message: message});
-      });
-
-   } else {
-      res.render('signup');
-   }
+   var sql = "SELECT * FROM leaderboard ORDER BY leaderboard.score DESC";
+   var query = db.query(sql, function(err, result) {
+     console.log(result);
+     global.resultArray = Object.values(JSON.parse(JSON.stringify(result)))
+     console.log(result[1].nickname);
+     res.render('leaderboard',resultArray);
+     resultArray.forEach((v) => console.log(v));
+   });
 };
 
 
@@ -56,3 +44,21 @@ exports.login = function(req, res){
 
 };
 //#############################################################################################################################
+exports.score = function(req, res){
+   message = '';
+   if(req.method == "POST"){
+      var post  = req.body;
+      var name = post.;
+      var score = post.score;
+
+      var sql = "INSERT INTO leaderboard (nickname, score) VALUES ('" + name + "', score')";
+
+      var query = db.query(sql, function(err, result) {
+        message = "Succesfully! Your Score has been added.";
+        res.render('leaderboard',{message: message});
+      });
+
+   } else {
+      res.render('leaderboard');
+   }
+};

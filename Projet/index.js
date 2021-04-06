@@ -60,11 +60,12 @@ app.get('/game', (req, res) => {
 app.get('/', (req, res) => { //REDIRECTION PAR DEFAUT
   res.render(__dirname + '/front/html-js/menu.ejs');
 });
-
-app.get('/signup', user.signup);//call for signup page
-app.post('/signup', user.signup);
-app.get('/login', back.index);//call for login page
-app.post('/login', user.login);//call for login post
+app.get('/leaderboard', user.leaderboard);//routage vers leaderboard
+app.post('/leaderboard', user.leaderboard);
+app.get('/score', user.score);//call for signup page
+app.post('/score', user.score);
+app.get('/login', back.index);//routage vers login
+app.post('/login', user.login);
 app.get('/', back.index);
 
 
