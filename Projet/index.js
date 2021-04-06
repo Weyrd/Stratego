@@ -133,8 +133,9 @@ io.on('connection', (socket) => {
     });
 
 
-    socket.on("postTerr", (terr) => {
-      socket.handshake.session.terr = terr;
+    socket.on("postTerr", (matrix) => {
+      console.log("post matrix");
+      socket.handshake.session.terr.matrix = matrix;
       socket.handshake.session.save()
       socket.emit("getTerr", socket.handshake.session.terr);
     });
@@ -209,6 +210,7 @@ io.on('connection', (socket) => {
 
     socket.on('swapPieceMovePlayer', (data) => {
       console.log(socket.id, ' -> swap piece : ',  data["AX"], data["AY"], data["BX"], data["BY"], data["player"]);
+      //console.log(socket.handshake.session.terr);
       err = socket.handshake.session.terr.SwapPiece(socket.handshake.session.terr, data["AX"], data["AY"], data["BX"], data["BY"], data["player"]);
 
       io.in(socket.handshake.session.roomId).emit('check', err);

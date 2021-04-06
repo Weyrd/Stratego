@@ -76,7 +76,8 @@ socket.on("getOtherPlayerTerr", (playerGet) => {
 });
 
 socket.on("getTransitTerr", (terrainGet) => {
-    socket.emit("postTerr", terrainGet)
+    console.log("On repost la matrix");
+    socket.emit("postTerr", terrainGet.matrix)
 });
 
 
@@ -101,9 +102,10 @@ function addPiece(x,y, pieceType, power, player) {
 }
 
 $( document ).ready(function() {
+  socket.emit("createTerr");
     setTimeout(function () {
       if(player==1){
-        socket.emit("createTerr");
+
       }
       else{
       socket.emit("getOtherPlayerTerr", player)
