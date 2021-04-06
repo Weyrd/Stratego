@@ -52,28 +52,22 @@ if (app.get('env') === 'production') {
   session.cookie.secure = true // serve secure cookies
 }
 
-/**** Code ****/
+/**** route ****/
 
-app.get('/', (req, res) => {
+app.get('/game', (req, res) => {
   res.sendFile(__dirname + '/front/jeu.html');
 });
 
-
-app.post('/login', body('login').isLength({ min: 3 }).trim().escape(), (req, res) => {
-  const login = req.body.login
-
-  // Error management
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    console.log(errors);
-    //return res.status(400).json({ errors: errors.array() });
-  } else {
-    // Store login
-    req.session.username = login;
-    req.session.save()
-    res.redirect('/');
-  }
+app.get('/', (req, res) => { //REDIRECTION PAR DEFAUT
+  res.render(__dirname + '/front/html-js/menu.ejs');
 });
+
+app.get('/signup', user.signup);//call for signup page
+app.post('/signup', user.signup);
+app.get('/login', back.index);//call for login page
+app.post('/login', user.login);//call for login post
+app.get('/', back.index);
+
 
 
 function findClientsSocketByRoomId(roomId) {
@@ -199,7 +193,7 @@ io.on('connection', (socket) => {
       io.in(socket.handshake.session.roomId).emit('check', err);
       socket.handshake.session.save()
       if(err == 0){
-          io.to(socket.handshake.session.roomId).emit('nextPlayer');
+          socket.emit('nextPlayer');
       }
       socket.emit("getTerr", socket.handshake.session.terr);
     });
@@ -236,27 +230,11 @@ http.listen(258, () => {
   console.log('Serveur lancé sur le port 258');
 });
 
+
 app.use(express.static('front/html-js'));
 app.use(express.static('front/css'));
 
-app.get('/', (req, res) => { //REDIRECTION PAR DEFAUT
-  states.printServerStatus();
-  states.printProfStatus();
-  let test = new Dark_Vador();
 
-  res.render(__dirname + '/front/html-js/menu.ejs');
-});
-
-
-
-app.get('/signup', user.signup);//call for signup page
-app.post('/signup', user.signup);
-app.get('/login', back.index);//call for login page
-app.post('/login', user.login);//call for login post
-app.get('/', back.index);
-/*app.post('/', function (req, res) {
-  res.send('Got a POST request');
-});*/
 
 var conn = mysql.createConnection({
   host: 'localhost',
