@@ -54,6 +54,13 @@ socket.on("confirmPlacementCheck", (data) => {
     console.log("Les deux joueurs sont ok c'est parti");
     gamePhase = 1;
   }
+  $('#info').text("Au tour du joueur N°" + gamePhase);
+  if(gamePhase == 1){
+     $("#info").css("color", "blue");
+    }
+    else{
+      $("#info").css("color", "red");
+    }
 });
 
 /* potatophobia */
