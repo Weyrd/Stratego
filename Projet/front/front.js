@@ -29,7 +29,10 @@ socket.on("numberPlayer", (data) => {
 
 
 socket.on("win", () => {
-  alert("Win : " + player);
+  let text = "Winner player N°" + player + ". Entrez votre pseudo si vous voulez enregistrez votre score";
+  pseudo = prompt(text)
+  socket.emit("score", {"pseudo" : pseudo, "score" : score});
+  window.location.replace('http://stratego.sverd.ovh:258')
 });
 
 
@@ -45,8 +48,8 @@ socket.on("confirmPlacementCheck", (data) => {
 
 
 socket.on("otherPlayerDisco", () => {
-  alert("L'autre joueur à une co de merde désolé");
-  window.location.href = "stratego.sverd.ovh:258";
+  alert("L'autre joueur à une co en carton désolé");
+  window.location.replace('http://stratego.sverd.ovh:258')
 });
 
 socket.on("nextPlayer", () => {

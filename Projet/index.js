@@ -154,8 +154,8 @@ io.on('connection', (socket) => {
       io.in(socket.handshake.session.roomId).emit('confirmPlacementCheck', player);
     });
 
-    socket.on("score", (score) => {
-      console.log(score);
+    socket.on("score", (data) => {
+      console.log("Score : ", data["score"], data["pseudo"]);
     });
 
 
