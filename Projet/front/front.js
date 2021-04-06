@@ -5,8 +5,6 @@ var terrain,
     lastCX = -1,
     lastCY= -1;
 
-
-
 socket.on('sendPieceMoveToRoom', (data) => {
   console.log('Move piece recu : ', data["terrain"], data["AX"], data["AY"], data["BX"], data["BY"]);
   socket.emit("sendPieceMovePlayer", data);
@@ -71,11 +69,6 @@ socket.on("check", (msg) => {
   console.log(msg);
 });
 
-socket.on("getOtherPlayerTerr", (playerGet) => {
-  if(playerGet!=player){
-    socket.emit("transitTerr", terrain)
-  }
-});
 
 function getTerr() {
   socket.emit("getTerr");
@@ -98,14 +91,7 @@ function addPiece(x,y, pieceType, power, player) {
 }
 
 $( document ).ready(function() {
-    setTimeout(function () {
-      if(player==1){
-        socket.emit("createTerr");
-      }
-      else{
-      socket.emit("getOtherPlayerTerr", player)
-      }
-    }, 50)//time
+    socket.emit("createTerr");
 
     let tab = document.getElementById("Plateau");
     for(let x = 0; x < 10; x++) {
@@ -193,144 +179,159 @@ function RefreshTer() {
         //console.log("got Piece");
         let pieceImg = document.createElement('img');
         tab.rows[j].cells[i].appendChild(pieceImg);
-        switch (terrain.matrix[i][j].Piece.player) {
-          case 2:
-            switch (terrain.matrix[i][j].Piece.pieceType) {
-              case 6:
-                pieceImg.id="Piece";
-                pieceImg.src="./img/flag2.png";
-                break;
-              case 5:
-                pieceImg.id="Piece";
-                pieceImg.src="./img/bombe2.png";
-                break;
-              case 4:
-                pieceImg.id="Piece";
-                pieceImg.src="./img/marshall2.png";
-                break;
-              case 3:
-                pieceImg.id="Piece";
-                pieceImg.src="./img/démineur2.png";
-                break;
-              case 2:
-                pieceImg.id="Piece";
-                pieceImg.src="./img/éclaireur2.png";
-                break;
-              case 1:
-                pieceImg.id="Piece";
-                pieceImg.src="./img/espion2.png";
-                break;
-              case 0:
-                switch (terrain.matrix[i][j].Piece.power) {
-                  case 4:
-                    pieceImg.id="Piece";
-                    pieceImg.src="./img/sergeant2.png";
-                    break;
-                  case 5:
-                    pieceImg.id="Piece";
-                    pieceImg.src="./img/lieutenant2.png";
-                    break;
-                  case 6:
-                    pieceImg.id="Piece";
-                    pieceImg.src="./img/capitaine2.png";
-                    break;
-                  case 7:
-                    pieceImg.id="Piece";
-                    pieceImg.src="./img/commendant2.png";
-                    break;
-                  case 8:
-                    pieceImg.id="Piece";
-                    pieceImg.src="./img/colonel2.png";
-                    break;
-                  case 9:
-                    pieceImg.id="Piece";
-                    pieceImg.src="./img/general2.png";
-                    break;
-                  default:
-                    pieceImg.id="SpongeBobTester";
-                    pieceImg.src="./img/SpongeBobTester.png";
-                    break;
-                }
-                break;
-              default:
-                console.log("Display what type ?")
-                pieceImg.id="SpongeBobTester";
-                pieceImg.src="./img/SpongeBobTester.png";
-                break;
-            }
-            break;
-          case 1:
-            switch (terrain.matrix[i][j].Piece.pieceType) {
-              case 6:
-                pieceImg.id="Piece";
-                pieceImg.src="./img/flag1.png";
-                break;
-              case 5:
-                pieceImg.id="Piece";
-                pieceImg.src="./img/bombe1.png";
-                break;
-              case 4:
-                pieceImg.id="Piece";
-                pieceImg.src="./img/marshall1.png";
-                break;
-              case 3:
-                pieceImg.id="Piece";
-                pieceImg.src="./img/démineur1.png";
-                break;
-              case 2:
-                pieceImg.id="Piece";
-                pieceImg.src="./img/éclaireur1.png";
-                break;
-              case 1:
-                pieceImg.id="Piece";
-                pieceImg.src="./img/espion1.png";
-                break;
-              case 0:
-                switch (terrain.matrix[i][j].Piece.power) {
-                  case 4:
-                    pieceImg.id="Piece";
-                    pieceImg.src="./img/sergeant1.png";
-                    break;
-                  case 5:
-                    pieceImg.id="Piece";
-                    pieceImg.src="./img/lieutenant1.png";
-                    break;
-                  case 6:
-                    pieceImg.id="Piece";
-                    pieceImg.src="./img/capitaine1.png";
-                    break;
-                  case 7:
-                    pieceImg.id="Piece";
-                    pieceImg.src="./img/commendant1.png";
-                    break;
-                  case 8:
-                    pieceImg.id="Piece";
-                    pieceImg.src="./img/colonel1.png";
-                    break;
-                  case 9:
-                    pieceImg.id="Piece";
-                    pieceImg.src="./img/general1.png";
-                    break;
-                  default:
-                    pieceImg.id="SpongeBobTester";
-                    pieceImg.src="./img/SpongeBobTester.png";
-                    break;
-                }
-                break;
-              default:
-                pieceImg.id="SpongeBobTester";
-                pieceImg.src="./img/SpongeBobTester.png";
-                break;
-            }
-            break;
-          default:
-            console.log("Display what player ?");
-            console.log(terrain.matrix[i][j].Piece.player);
-            pieceImg.id="SpongeBobTester";
-            pieceImg.src="./img/SpongeBobTester.png";
-            break;
+        if (terrain.matrix[i][j].Piece.shown == true || terrain.matrix[i][j].Piece.player == player) {
+          switch (terrain.matrix[i][j].Piece.player) {
+            case 2:
+              switch (terrain.matrix[i][j].Piece.pieceType) {
+                case 6:
+                  pieceImg.id="Piece";
+                  pieceImg.src="./img/flag2.png";
+                  break;
+                case 5:
+                  pieceImg.id="Piece";
+                  pieceImg.src="./img/bombe2.png";
+                  break;
+                case 4:
+                  pieceImg.id="Piece";
+                  pieceImg.src="./img/marshall2.png";
+                  break;
+                case 3:
+                  pieceImg.id="Piece";
+                  pieceImg.src="./img/démineur2.png";
+                  break;
+                case 2:
+                  pieceImg.id="Piece";
+                  pieceImg.src="./img/éclaireur2.png";
+                  break;
+                case 1:
+                  pieceImg.id="Piece";
+                  pieceImg.src="./img/espion2.png";
+                  break;
+                case 0:
+                  switch (terrain.matrix[i][j].Piece.power) {
+                    case 4:
+                      pieceImg.id="Piece";
+                      pieceImg.src="./img/sergeant2.png";
+                      break;
+                    case 5:
+                      pieceImg.id="Piece";
+                      pieceImg.src="./img/lieutenant2.png";
+                      break;
+                    case 6:
+                      pieceImg.id="Piece";
+                      pieceImg.src="./img/capitaine2.png";
+                      break;
+                    case 7:
+                      pieceImg.id="Piece";
+                      pieceImg.src="./img/commendant2.png";
+                      break;
+                    case 8:
+                      pieceImg.id="Piece";
+                      pieceImg.src="./img/colonel2.png";
+                      break;
+                    case 9:
+                      pieceImg.id="Piece";
+                      pieceImg.src="./img/general2.png";
+                      break;
+                    default:
+                      pieceImg.id="SpongeBobTester";
+                      pieceImg.src="./img/SpongeBobTester.png";
+                      break;
+                  }
+                  break;
+                default:
+                  console.log("Display what type ?")
+                  pieceImg.id="SpongeBobTester";
+                  pieceImg.src="./img/SpongeBobTester.png";
+                  break;
+              }
+              break;
+            case 1:
+              switch (terrain.matrix[i][j].Piece.pieceType) {
+                case 6:
+                  pieceImg.id="Piece";
+                  pieceImg.src="./img/flag1.png";
+                  break;
+                case 5:
+                  pieceImg.id="Piece";
+                  pieceImg.src="./img/bombe1.png";
+                  break;
+                case 4:
+                  pieceImg.id="Piece";
+                  pieceImg.src="./img/marshall1.png";
+                  break;
+                case 3:
+                  pieceImg.id="Piece";
+                  pieceImg.src="./img/démineur1.png";
+                  break;
+                case 2:
+                  pieceImg.id="Piece";
+                  pieceImg.src="./img/éclaireur1.png";
+                  break;
+                case 1:
+                  pieceImg.id="Piece";
+                  pieceImg.src="./img/espion1.png";
+                  break;
+                case 0:
+                  switch (terrain.matrix[i][j].Piece.power) {
+                    case 4:
+                      pieceImg.id="Piece";
+                      pieceImg.src="./img/sergeant1.png";
+                      break;
+                    case 5:
+                      pieceImg.id="Piece";
+                      pieceImg.src="./img/lieutenant1.png";
+                      break;
+                    case 6:
+                      pieceImg.id="Piece";
+                      pieceImg.src="./img/capitaine1.png";
+                      break;
+                    case 7:
+                      pieceImg.id="Piece";
+                      pieceImg.src="./img/commendant1.png";
+                      break;
+                    case 8:
+                      pieceImg.id="Piece";
+                      pieceImg.src="./img/colonel1.png";
+                      break;
+                    case 9:
+                      pieceImg.id="Piece";
+                      pieceImg.src="./img/general1.png";
+                      break;
+                    default:
+                      pieceImg.id="SpongeBobTester";
+                      pieceImg.src="./img/SpongeBobTester.png";
+                      break;
+                  }
+                  break;
+                default:
+                  pieceImg.id="SpongeBobTester";
+                  pieceImg.src="./img/SpongeBobTester.png";
+                  break;
+              }
+              break;
+            default:
+              pieceImg.id="SpongeBobTester";
+              pieceImg.src="./img/SpongeBobTester.png";
+              break;
+          }
         }
-
+        else {
+          switch (terrain.matrix[i][j].Piece.player) {
+            case 2:
+              pieceImg.id="Piece";
+              pieceImg.src="./img/back_2.png";
+              break;
+            case 1:
+              pieceImg.id="Piece";
+              pieceImg.src="./img/back_1.png";
+              break;
+            default:
+              pieceImg.id="SpongeBobTester";
+              pieceImg.src="./img/SpongeBobTester.png";
+              break;
+          }
+        }
       }
     }
   }

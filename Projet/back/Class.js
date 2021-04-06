@@ -12,7 +12,7 @@ class Piece{
     // 6 = drapeau
     this.power = power;
     this.player = player;
-    this.shown = true;
+    this.shown = false;
   }
   static engageCombat(attack, def){ //attack = start piece, def = dest piece
     if(def.pieceType == 6){
