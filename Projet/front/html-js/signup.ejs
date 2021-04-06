@@ -7,15 +7,14 @@
     <script>
         function empty() {
              var x;
-             x = document.getElementById("roll-input").value;
+             if (roll-input) {x = document.getElementById("roll-input").value;}
              if (x == "") {
                  //alert("Please insert empty value");
                  return false;
              };
          }
     </script>
-		<link rel="stylesheet" href="css/boostrap.min.css">
-		<link rel="stylesheet" href="css/boostrap-theme.min.css">
+
 		<link rel="stylesheet" href="./contact.css">
 </head>
 
@@ -32,7 +31,7 @@
 <div class="form-container sign-up-container">
 
 
-<form method="post" id="i_form" action="/signup" onClick="return empty()"> <!-- le return false ici et ligne 36 sont des tests pour éviter le refresh de la page, mais le serv crash donc j'ai pas pu faire les tests avec-->
+<form id="i_form" action=inscription() >
 	<h1>Créer un compte</h1>
 	<span>********************************************************</span>
 	<input type="text" name="i_name" placeholder="Pseudo">
@@ -47,12 +46,11 @@
 
 
 <div class="form-container sign-in-container">
-	<form id="c_form" methode="post" action="/login">
+	<form methode="post" id="c_form" action="/login">
 		<h1>S'identifier</h1>
 	<span>****************************************</span>
-	<input id="c_mail" type="email" name="c_email" placeholder="Email">
+	<input id="c_name" type="text" name="c_name" placeholder="Pseudo">
 	<input id="c_password" type="password" name="c_password" placeholder="Mot de passe">
-	<a href="#">Mot de passe perdu ?</a>
 
 	<button>S'identifier</button>
 	</form>
@@ -80,3 +78,12 @@
 
 	</body>
 </html>
+
+<script>
+	function inscription()
+	{
+		var pass=document.getElementById("password");
+		var pass2=document.getElementById("password2");
+		if (pass!=pass2){alert("Mots de passe différents");}
+	}
+</script>
