@@ -24,13 +24,20 @@ socket.on('swapPieceMoveToRoom', (data) => {
 /* Set player number */
 socket.on("numberPlayer", (data) => {
   console.log("Tu es le joueur : ", data);
+  $('#info').text("Tu es le joueur : " + data)
   player = data;
 });
 
 
 socket.on("win", () => {
-  let text = "Winner player N°" + player + ". Entrez votre pseudo si vous voulez enregistrez votre score";
+  let text = "Winner player N°" + gamePhase + ". Entrez votre pseudo si vous voulez enregistrez votre score";
   pseudo = prompt(text)
+  if(gamePhase == player){
+    score = 5;
+  }
+  else{
+  score = -2;
+  }
   socket.emit("score", {"pseudo" : pseudo, "score" : score});
   window.location.replace('http://stratego.sverd.ovh:258')
 });
@@ -75,6 +82,7 @@ socket.on("getTerr", (terr) => {
 
 socket.on("check", (msg) => {
   console.log(msg);
+  $('#info').text(msg)
 });
 
 /* gathering matrix */
