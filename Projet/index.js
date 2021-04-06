@@ -1,9 +1,12 @@
 /**** Import npm libs ****/
-
+const mysql = require('mysql');
+const back = require('./back');
+const user = require('./back/user')
 const express = require('express');
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
+const path = require('path');
 const session = require("express-session")({
 
   secret: "1081a1e0c1b22b5f6a71401884e29e20228fa72021f425b7687125af0c467d06",
@@ -21,12 +24,16 @@ const { body, validationResult } = require('express-validator');
 var currentroomId = 0;
 /**** Import project libs ****/
 const {Terrain} = require("./back/Class.js")
+const states = require('./back/modules/states');
+const Dark_Vador = require('./back/models/Dark_Vador');
 
 
 /**** Project configuration ****/
 
 const jsonParser = bodyParser.json();
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
+app.set('views', __dirname + '/front/html-js');
+app.set('view engine', 'ejs');
 
 // Init of express, to point our assets
 app.use(express.static(__dirname + '/front/'));
@@ -228,3 +235,39 @@ io.on('connection', (socket) => {
 http.listen(258, () => {
   console.log('Serveur lancé sur le port 258');
 });
+
+app.use(express.static('front/html-js'));
+app.use(express.static('front/css'));
+
+app.get('/', (req, res) => { //REDIRECTION PAR DEFAUT
+  states.printServerStatus();
+  states.printProfStatus();
+  let test = new Dark_Vador();
+
+  res.render(__dirname + '/front/html-js/menu.ejs');
+});
+
+
+
+app.get('/signup', user.signup);//call for signup page
+app.post('/signup', user.signup);
+app.get('/login', back.index);//call for login page
+app.post('/login', user.login);//call for login post
+app.get('/', back.index);
+/*app.post('/', function (req, res) {
+  res.send('Got a POST request');
+});*/
+
+var conn = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  database: 'users'
+});
+
+conn.connect(function(err) {
+  if (err) throw err;
+  console.log('Database is connected successfully !');
+});
+global.db = conn;
+//module.exports = conn;

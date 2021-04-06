@@ -1,0 +1,104 @@
+body{
+  color :red;
+  text-align: center;
+  background-color: #D6C6A8;
+  font-family: sans-sérif;
+}
+
+#menu {
+  float: center;
+  width: 400px;
+  height: 100px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+#menu ul {
+  float: right;
+  margin: 0;
+  padding: 50px 0px 0px 0px;
+  list-style: none;
+  line-height: normal;
+}
+
+#menu li {
+  float: left;
+  padding: 0px 0px 0px 0px;
+}
+
+#menu a {
+  display: block;
+  margin-right: 1px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: 'Zounderkite 3D';
+  font-size: 25px;
+  font-weight: 300;
+  color: red;
+  border: none;
+}
+
+#menu a:hover, #menu .current_page_item a {
+  text-decoration: none;
+  color: white;
+}
+
+#menu .current_page_item a {
+  background: #1D1B1B;
+  border-radius: 5px;
+}
+
+.loading{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.text{
+  font-size: 65px;
+  font-weight: 400;
+  text-align: center;
+  color: #7D5FE5;
+  font-family: 'Zounderkite 3D';
+  margin-bottom: 20px;
+}
+.add{
+  animation: animate .7s ease-in-out .1s;
+}
+@keyframes animate {
+  0%{
+    opacity: 1;
+  }
+  50%{
+    opacity: 0.2;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+.progress-bar{
+  width: 406px;
+  height: 22px;
+  background: #111;
+  border-radius: 13px;
+  padding: 3px;
+  box-sizing: border-box;
+}
+.progress{
+  width: 203px;
+  height: 16px;
+  background: #7D5FE5;
+  border-radius: 13px;
+}
+.percent{
+  position: absolute;
+  left: 187px;
+  color: #FFF;
+  font-size: 15px;
+  font-family: 'Zounderkite 3D';
+  font-weight: bold;
+  letter-spacing: 1px;
+  line-height: 23px;
+}

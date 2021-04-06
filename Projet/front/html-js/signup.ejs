@@ -1,0 +1,83 @@
+
+<html lang="fr">
+<head>
+<title>Stratego.com</title>
+		<meta charset="utf-8">
+		<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <script>
+        function empty() {
+             var x;
+             x = document.getElementById("roll-input").value;
+             if (x == "") {
+                 //alert("Please insert empty value");
+                 return false;
+             };
+         }
+    </script>
+		<link rel="stylesheet" href="css/boostrap.min.css">
+		<link rel="stylesheet" href="css/boostrap-theme.min.css">
+		<link rel="stylesheet" href="./contact.css">
+</head>
+
+<body>
+	<div id="menu">
+		<ul>
+			<li class ="current-item is-activate"><a href="menu.ejs">Bienvenue</a></li>
+			<li class ="current-item"><a href="./loading.html">Jeu</a></li>
+			<li class ="current-item"><a href="/signup">Contact</a></li>
+		</ul>
+	</div>
+
+<div class="container" id="container">
+<div class="form-container sign-up-container">
+
+
+<form method="post" id="i_form" action="/signup" onClick="return empty()"> <!-- le return false ici et ligne 36 sont des tests pour éviter le refresh de la page, mais le serv crash donc j'ai pas pu faire les tests avec-->
+	<h1>Créer un compte</h1>
+	<span>********************************************************</span>
+	<input type="text" name="i_name" placeholder="Pseudo">
+	<input type="email" name="i_email" placeholder="Email">
+	<input type="password" name="i_password" placeholder="Mot de passe">
+	<input type="password" name="i_password2" placeholder="Confirmation du mot de passe">
+	</br>
+	<button type="submit">S'inscrire</button>
+</form>
+</div>
+
+
+
+<div class="form-container sign-in-container">
+	<form id="c_form" methode="post" action="/login">
+		<h1>S'identifier</h1>
+	<span>****************************************</span>
+	<input id="c_mail" type="email" name="c_email" placeholder="Email">
+	<input id="c_password" type="password" name="c_password" placeholder="Mot de passe">
+	<a href="#">Mot de passe perdu ?</a>
+
+	<button>S'identifier</button>
+	</form>
+</div>
+
+
+<div class="overlay-container">
+	<div class="overlay">
+		<div class="overlay-panel overlay-left">
+			<h1>Te revoilà !</h1>
+			<p>Identifie toi</p>
+			<button class="ghost" id="signIn">S'identifier</button>
+		</div>
+		<div class="overlay-panel overlay-right">
+			<h1>Bienvenue</h1>
+			<p>Inscrivez vous</p>
+			<button class="ghost" id="signUp">S'inscrire</button>
+		</div>
+	</div>
+</div>
+</div>
+
+
+<script src="sign.js"></script>
+<!--script src="treatment.js"></script!-->
+
+	</body>
+</html>
