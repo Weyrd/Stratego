@@ -83,7 +83,7 @@ socket.on("loading", () => {
 socket.on("start", () => {
   console.log("Début de la partie");
     $('#info').text("Tu es le joueur : " + player)
-    if(data ==1){
+    if(player ==1){
        $("#info").css("color", "blue");
       }
       $('#info').append("</br>Début de la partie");
