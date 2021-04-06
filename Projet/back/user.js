@@ -31,6 +31,7 @@ exports.login = function(req, res){
       var sql="SELECT id, nickname FROM user WHERE email='"+mail+"' and password = '"+pass+"'";
       db.query(sql, function(err, results){
          if(results.length){
+            console.log("test");
             req.session.userId = results[0].id;
             req.session.user = results[0];
             console.log(results[0].id);
@@ -40,7 +41,6 @@ exports.login = function(req, res){
             message = 'Wrong Credentials.';
             res.render('menu.ejs',{message: message});
          }
-
       });
    } else {
       res.render('menu.ejs',{message: message});
