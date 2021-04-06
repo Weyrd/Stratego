@@ -154,6 +154,10 @@ io.on('connection', (socket) => {
       io.in(socket.handshake.session.roomId).emit('confirmPlacementCheck', player);
     });
 
+    socket.on("score", (score) => {
+      console.log(score);
+    });
+
 
 
     socket.on('addPieceToServer', (data) => {
@@ -252,4 +256,3 @@ conn.connect(function(err) {
   console.log('Database is connected successfully !');
 });
 global.db = conn;
-//module.exports = conn;
