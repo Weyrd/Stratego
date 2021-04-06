@@ -25,6 +25,9 @@ socket.on('swapPieceMoveToRoom', (data) => {
 socket.on("numberPlayer", (data) => {
   console.log("Tu es le joueur : ", data);
   $('#info').text("Tu es le joueur : " + data)
+  if(data ==1){
+     $("#info").css("color", "blue");
+    }
   player = data;
 });
 
@@ -61,16 +64,30 @@ socket.on("otherPlayerDisco", () => {
 
 socket.on("nextPlayer", () => {
   if(gamePhase == 1){ gamePhase = 2; }
-  else{ gamePhase = 1 }
+  else{ gamePhase = 1; }
+  $('#info').text("Au tour du joueur N°" + gamePhase);
+  if(gamePhase == 1){
+     $("#info").css("color", "blue");
+    }
+    else{
+      $("#info").css("color", "red");
+    }
 });
 
 socket.on("loading", () => {
   console.log("En attente d'un autre joueur");
+  $('#info').append("</br>En attente d'un autre joueur");
 });
 
 
 socket.on("start", () => {
   console.log("Début de la partie");
+    $('#info').text("Tu es le joueur : " + player)
+    if(data ==1){
+       $("#info").css("color", "blue");
+      }
+      $('#info').append("</br>Début de la partie");
+
 });
 
 /* Refresh state of matrix */
@@ -82,7 +99,7 @@ socket.on("getTerr", (terr) => {
 
 socket.on("check", (msg) => {
   console.log(msg);
-  $('#info').text(msg)
+  //$('#info').text(msg)
 });
 
 /* gathering matrix */
