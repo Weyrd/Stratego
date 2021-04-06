@@ -11,6 +11,7 @@ function animate(){
         text.style.fontSize = "65px";
         text.classList.add("add");
         clearInterval(loading);
+        window.location.replace("http://stratego.sverd.ovh:258/game");
     }
     else{
         per = per + 4;
