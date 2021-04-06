@@ -27,6 +27,14 @@ socket.on("numberPlayer", (data) => {
   player = data;
 });
 
+
+socket.on("win", () => {
+  alert("Win : ", player);
+
+});
+
+
+
 socket.on("confirmPlacementCheck", (data) => {
   console.log("playersState : ", data);
   playersState = data;

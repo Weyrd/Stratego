@@ -189,11 +189,16 @@ io.on('connection', (socket) => {
       console.log(socket.id, ' -> move piece : ',  data["AX"], data["AY"], data["BX"], data["BY"], data["player"]);
       err = socket.handshake.session.terr.MovePieceTo(socket.handshake.session.terr, data["AX"], data["AY"], data["BX"], data["BY"], data["player"]);
 
-      io.in(socket.handshake.session.roomId).emit('check', err);
       socket.handshake.session.save()
-      if(err == 0){
+      if(err == 0 || err == 1 || err = 2){
           socket.emit('nextPlayer');
       }
+      else if(err==3){
+          io.in(socket.handshake.session.roomId).emit('win')
+      }
+      else{
+      }
+      io.in(socket.handshake.session.roomId).emit('check', err);
       socket.emit("getTerr", socket.handshake.session.terr);
     });
 
@@ -237,8 +242,8 @@ app.use(express.static('front/css'));
 
 var conn = mysql.createConnection({
   host: 'localhost',
-  user: 'root',
-  password: '',
+  user: 'wyrd',
+  password: '666',
   database: 'users'
 });
 
