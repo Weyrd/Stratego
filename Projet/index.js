@@ -127,10 +127,14 @@ io.on('connection', (socket) => {
       socket.emit("getTerr", socket.handshake.session.terr);
     });
 
+    socket.on("getOtherPlayerTerr", (player) => {
+      io.to(socket.handshake.session.roomId).emit("getTerrPlayer", player);
+    });
+
     socket.on("postTerr", (terr) => {
       socket.handshake.session.terr = terr;
       socket.handshake.session.save()
-      socket.emit("getTerr", socket.handshake.session.terr);
+      io.to(socket.handshake.session.roomId).emit("getTerr", socket.handshake.session.terr);
     });
 
     socket.on("getTerr", (terr) => {
