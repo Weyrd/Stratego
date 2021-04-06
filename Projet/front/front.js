@@ -54,13 +54,19 @@ socket.on("confirmPlacementCheck", (data) => {
     console.log("Les deux joueurs sont ok c'est parti");
     gamePhase = 1;
   }
-  $('#info').text("Au tour du joueur N°" + gamePhase);
+  if(gamePhase == false){
+      $('#info').text("En attente de l'autre joueur");
+  }
+  else{
+
+  $('#info').text("tu es le joueur N°" + player + "</br>Au tour du joueur N°" + gamePhase);
   if(gamePhase == 1){
      $("#info").css("color", "blue");
     }
     else{
       $("#info").css("color", "red");
     }
+  }
 });
 
 /* potatophobia */
@@ -173,7 +179,7 @@ function click_event(x, y){
       else {
         if (terrain.matrix[x][y].hasPiece) {
           lastCX = x;
-          lastCY = y;          
+          lastCY = y;
         }
         return(0);
       }
