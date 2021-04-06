@@ -416,7 +416,8 @@ function RefreshTer() {
             teamR[terrain.matrix[i][j].Piece.power +2] += 1; //don't worry that make sense
           }
         }
-        //switch (terrain.matrix[i][j].Piece.player) {
+        /*
+        switch (terrain.matrix[i][j].Piece.player) {
           case 2:
             switch (terrain.matrix[i][j].Piece.pieceType) {
               case 6:
@@ -539,6 +540,7 @@ function RefreshTer() {
           default:
             break;
         }
+        */
       }
     }
     document.getElementById("BomB").innerHTML = teamB[4];
