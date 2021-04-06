@@ -29,8 +29,9 @@ socket.on("numberPlayer", (data) => {
 
 
 socket.on("win", () => {
-  let text = "Winner player N°" + player + ". Entrez votre pseudo si vous voulez enregistrez votre score";
+  let text = "Winner player N°" + gamePhase + ". Entrez votre pseudo si vous voulez enregistrez votre score";
   pseudo = prompt(text)
+  score = 1;
   socket.emit("score", {"pseudo" : pseudo, "score" : score});
   window.location.replace('http://stratego.sverd.ovh:258')
 });
