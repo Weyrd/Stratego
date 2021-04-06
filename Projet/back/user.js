@@ -1,6 +1,6 @@
 exports.leaderboard = function(req, res){
    message = '';
-   var sql = "SELECT * FROM leaderboard ORDER BY leaderboard.score DESC";
+   let sql = "SELECT * FROM leaderboard ORDER BY leaderboard.score DESC";
    var query = db.query(sql, function(err, result) {
      console.log(result);
      global.resultArray = Object.values(JSON.parse(JSON.stringify(result)))
@@ -46,19 +46,13 @@ exports.login = function(req, res){
 //#############################################################################################################################
 exports.score = function(req, res){
    message = '';
-   if(req.method == "POST"){
-      var post  = req.body;
-      var name = post.;
-      var score = post.score;
-
-      var sql = "INSERT INTO leaderboard (nickname, score) VALUES ('" + name + "', score')";
-
-      var query = db.query(sql, function(err, result) {
-        message = "Succesfully! Your Score has been added.";
-        res.render('leaderboard',{message: message});
-      });
-
-   } else {
-      res.render('leaderboard');
-   }
+   var post = req.body;
+   var name = post.pseudo;
+   var score = post.score;
+//pour pierre tu dois juste faire un form post et mettre /score en action la suite se fait tout seul
+   let sql = "INSERT INTO leaderboard (nickname, score) VALUES ('" + name + "', score')";
+   var query = db.query(sql, function(err, result) {
+     message = "Succesfully! Your Score has been added.";
+     res.render('menu',{message: message});
+   });
 };

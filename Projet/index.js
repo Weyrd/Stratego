@@ -62,8 +62,10 @@ app.get('/', (req, res) => { //REDIRECTION PAR DEFAUT
 });
 app.get('/leaderboard', user.leaderboard);//routage vers leaderboard
 app.post('/leaderboard', user.leaderboard);
-app.get('/score', user.score);//call for signup page
+
+app.get('/score', user.score);//routage vers score
 app.post('/score', user.score);
+
 app.get('/login', back.index);//routage vers login
 app.post('/login', user.login);
 app.get('/', back.index);
