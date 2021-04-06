@@ -240,9 +240,9 @@ app.use(express.static('front/css'));
 
 var conn = mysql.createConnection({
   host: 'localhost',
-  user: 'wyrd',
-  password: '666', //hhm
-  database: 'users'
+  user: 'root',
+  password: '',
+  database: 'stratego'
 });
 
 conn.connect(function(err) {
