@@ -1,2 +1,2 @@
 # Stratego
-Vidéo de présentation : https://youtu.be/mLepYhBy5gc
+Vidéo de présentation :  https://youtu.be/Xa2nxl7Dk38
