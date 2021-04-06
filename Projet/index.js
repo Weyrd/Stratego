@@ -69,16 +69,6 @@ app.get('/', back.index);
 
 
 
-function findClientsSocketByRoomId(roomId) {
-var res = []
-, room = io.sockets.adapter.rooms[roomId];
-if (room) {
-    for (var id in room) {
-    res.push(io.sockets.adapter.nsp.connected[id]);
-    }
-}
-return res;
-}
 
 
 function matchmacking(socket) {
@@ -105,10 +95,10 @@ function matchmacking(socket) {
         io.in(roomId).emit("loading");
       }
   }
-  io.to(socket).emit("postRoom", roomId)
   socket.handshake.session.roomId = roomId;
   socket.handshake.session.save()
 
+  /* When two players are in room you can start */
   if(io.sockets.adapter.rooms.get(roomId).size == 2){
     io.in(roomId).emit("start");
     console.log("A new Stratego is born (", roomId, ")");
@@ -119,6 +109,7 @@ io.on('connection', (socket) => {
   console.log('Un Utilisateur s\'est connecté\n');
   matchmacking(socket)
 
+    /* Make your Terrain great Again */
     socket.on("createTerr", () => {
       socket.handshake.session.terr = new Terrain(10, 10);
       socket.handshake.session.terr.generateVanillaLake();
@@ -127,12 +118,13 @@ io.on('connection', (socket) => {
       socket.emit("getTerr", socket.handshake.session.terr);
     });
 
+    /* get other player matrix state and his shuffle*/
     socket.on("getOtherPlayerTerr", (player) => {
       console.log("J2 try de get l'autre matrix");
       io.to(socket.handshake.session.roomId).emit("getOtherPlayerTerr", player);
     });
 
-
+    /* Set YOUR matrix */
     socket.on("postTerr", (matrix) => {
       console.log("post matrix");
       socket.handshake.session.terr.matrix = matrix;
@@ -145,12 +137,13 @@ io.on('connection', (socket) => {
       io.to(socket.handshake.session.roomId).emit("getTransitTerr", socket.handshake.session.terr);
     });
 
+    /* Get state of matrix in server*/
     socket.on("getTerr", (terr) => {
       socket.emit("getTerr",   socket.handshake.session.terr);
     });
 
+    /* when players are ready*/
     socket.on("confirmPlacement", (player) => {
-      //console.log(player);
       io.in(socket.handshake.session.roomId).emit('confirmPlacementCheck', player);
     });
 
@@ -159,7 +152,7 @@ io.on('connection', (socket) => {
     });
 
 
-
+    /* some listeners when you want to place your own piece */
     socket.on('addPieceToServer', (data) => {
       console.log('Addpiece sur le serveur : ',  data["x"], data["y"], data["pieceType"], data["power"], data["player"]);
       data["terrain"] =   socket.handshake.session.terr;
@@ -179,7 +172,7 @@ io.on('connection', (socket) => {
     });
 
 
-
+    /* Listeners for move pieces */
     socket.on('sendPieceMoveToServer', (data) => {
       console.log('Coup reçu sur le serveur : ',  data["AX"], data["AY"], data["BX"], data["BY"], data["player"]);
       data["terrain"] =  socket.handshake.session.terr;
@@ -197,7 +190,7 @@ io.on('connection', (socket) => {
       if(err == 0 || err == 1 || err == 2){
           socket.emit('nextPlayer');
       }
-      else if(err==3){
+      else if(err==3){ /* if win */
           io.in(socket.handshake.session.roomId).emit('win')
       }
       else{
@@ -207,7 +200,7 @@ io.on('connection', (socket) => {
     });
 
 
-    /////
+    /* Listeners for Swap */
     socket.on('SwapPieceToServer', (data) => {
       console.log('Swap reçu sur le serveur : ',  data["AX"], data["AY"], data["BX"], data["BY"], data["player"]);
       data["terrain"] =  socket.handshake.session.terr;
@@ -228,6 +221,7 @@ io.on('connection', (socket) => {
     });
 
 
+  /* When your friend have a potato connection */
   socket.on('disconnect', () => {
     io.in(socket.handshake.session.roomId).emit('otherPlayerDisco');
     console.log('Un Utilisateur s\'est déconnecté');
@@ -247,7 +241,7 @@ app.use(express.static('front/css'));
 var conn = mysql.createConnection({
   host: 'localhost',
   user: 'wyrd',
-  password: '666',
+  password: '666', //hhm
   database: 'users'
 });
 

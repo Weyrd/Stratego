@@ -5,6 +5,7 @@ var terrain,
     lastCX = -1,
     lastCY= -1;
 
+/* Somes ping-pong socket listeners */
 socket.on('sendPieceMoveToRoom', (data) => {
   console.log('Move piece recu : ', data["terrain"], data["AX"], data["AY"], data["BX"], data["BY"]);
   socket.emit("sendPieceMovePlayer", data);
@@ -15,13 +16,12 @@ socket.on('addPieceToRoom', (data) => {
   socket.emit("addPiecePlayer", data);
 });
 
-
 socket.on('swapPieceMoveToRoom', (data) => {
   console.log('Swap piece recu : ', data["terrain"], data["AX"], data["AY"], data["BX"], data["BY"]);
   socket.emit("swapPieceMovePlayer", data);
 });
 
-
+/* Set player number */
 socket.on("numberPlayer", (data) => {
   console.log("Tu es le joueur : ", data);
   player = data;
@@ -36,7 +36,7 @@ socket.on("win", () => {
 });
 
 
-
+/* check if two players are ready */
 socket.on("confirmPlacementCheck", (data) => {
   console.log("playersState : ", data);
   playersState = data;
@@ -46,19 +46,15 @@ socket.on("confirmPlacementCheck", (data) => {
   }
 });
 
-
+/* potatophobia */
 socket.on("otherPlayerDisco", () => {
-  alert("L'autre joueur à une co en carton désolé");
+  alert("L'autre joueur à une co en carton désolé :/");
   window.location.replace('http://stratego.sverd.ovh:258')
 });
 
 socket.on("nextPlayer", () => {
-  if(gamePhase == 1){
-    gamePhase = 2;
-  }
-  else{
-  gamePhase = 1
-  }
+  if(gamePhase == 1){ gamePhase = 2; }
+  else{ gamePhase = 1 }
 });
 
 socket.on("loading", () => {
@@ -70,6 +66,7 @@ socket.on("start", () => {
   console.log("Début de la partie");
 });
 
+/* Refresh state of matrix */
 socket.on("getTerr", (terr) => {
   terrain = terr;
   RefreshTer();
@@ -80,6 +77,7 @@ socket.on("check", (msg) => {
   console.log(msg);
 });
 
+/* gathering matrix */
 socket.on("getOtherPlayerTerr", (playerGet) => {
   if(playerGet!=player){
     socket.emit("transitTerr", terrain)
@@ -91,10 +89,6 @@ socket.on("getTransitTerr", (terrainGet) => {
     socket.emit("postTerr", terrainGet.matrix)
 });
 
-
-function getTerr() {
-  socket.emit("getTerr");
-}
 
 
 function swapPiece(AX, AY, BX, BY) {
@@ -115,10 +109,7 @@ function addPiece(x,y, pieceType, power, player) {
 $( document ).ready(function() {
   socket.emit("createTerr");
     setTimeout(function () {
-      if(player==1){
-
-      }
-      else{
+      if(player!=1){
       socket.emit("getOtherPlayerTerr", player)
       }
     }, 500)//time
@@ -194,7 +185,7 @@ function PlayTest(x, y){
         }
       }
     }
-  }, 25)
+  }, 25)//little delay for server
 }
 
 function RefreshTer() {
