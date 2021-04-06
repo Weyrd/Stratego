@@ -197,9 +197,9 @@ class Terrain{
         return("error not mouvable piece");
       }
       //scout or not scout
-      if(terr.matrix[AX][AY].Piece.pieceType == 1){
+      if(terr.matrix[AX][AY].Piece.pieceType == 2){
         if (AX == BX) {
-          dist = AY-BY;
+          let dist = AY-BY;
           if (dist <= 3 && dist >= -3 && dist) {
             if (dist <= 3) {
               for (var i = 1; i < dist; i++) {
@@ -224,7 +224,7 @@ class Terrain{
           }
         }
         else if (AY == BY) {
-          dist = AX-BX;
+          let dist = AX-BX;
           if (dist <= 3 && dist >= -3 && dist) {
             if (dist <= 3) {
               for (var i = 1; i < dist; i++) {
